@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{% endblock %}
+
+
+{% block body %}
+    {% embed 'views/form/default_form.html.twig' with {'form' : lieuForm} %}
+        {% block h2 %} Ajouter un lieu{% endblock %}
+        {% block buttonLabel %}Ajouter {% endblock %}
+    {% endembed %}
+{% endblock %}
