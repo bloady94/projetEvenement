@@ -16,7 +16,6 @@ class LieuController extends AbstractController
     public function add(
         LieuRepository $lieuRepository,
         Request $request,
-        int $id
     ): Response
     {
         $lieu = new Lieu();
@@ -25,7 +24,7 @@ class LieuController extends AbstractController
 
         $lieuForm->handleRequest($request);
 
-        $lieuRepository->save($lieu, true);
+
 
         return $this->render('lieu/add.html.twig', [
             'lieuForm' => $lieuForm->createView()
