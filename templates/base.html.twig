@@ -6,10 +6,13 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}SortiENI{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     </head>
     <body>
+    <header>
+        <h1><a href="{{ path('main_homepage') }}"><img src="{{ asset('img/SortiENI2modif.svg') }}" alt="SeriesLogo"></a></h1>
     {{ include('menu/nav.html.twig') }}
-
+    </header>
         {% block body %}{% endblock %}
     </body>
 </html>
