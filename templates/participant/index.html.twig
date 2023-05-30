@@ -1,20 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ParticipantController!{% endblock %}
+{% block title %}{{parent()}} | Mon profil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{#    {{ form_start(participantForm) }}
+    {{ form_row(participantForm.username) }} <br>
+    {{ form_row(participantForm.plainPassword, {
+        label: 'Mot de passe'
+    }) }}
+    {{ form_row(participantForm.nom) }}
+    {{ form_row(participantForm.prenom) }}
+    {{ form_row(participantForm.telephone) }}
+    {{ form_row(participantForm.mail) }}
+    {{ form_row(participantForm.administrateur) }}
+    {{ form_row(participantForm.actif) }}
+    {{ form_row(participantForm.campus) }}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <button type="submit" class="btn">Enregistrer</button>
+    {{ form_end(participantForm) }}#}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/wamp64/www/projetEvenement/src/Controller/ParticipantController.php'|file_link(0) }}">src/Controller/ParticipantController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/wamp64/www/projetEvenement/templates/participant/index.html.twig'|file_link(0) }}">templates/participant/index.html.twig</a></code></li>
-    </ul>
-</div>
+{{ app.user.prenom }} <br>
+{{ app.user.nom }} <br>
+{{ app.user.telephone }} <br>
+{{ app.user.mail }} <br>
+{{ app.user.password }} <br>
 {% endblock %}
