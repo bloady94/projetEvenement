@@ -3,4 +3,5 @@ twig:
 
 when@test:
     twig:
+        exception_controller: 'App\\Controller\\ExceptionController::showException'
         strict_variables: true
