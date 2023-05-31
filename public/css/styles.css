@@ -1,0 +1,8 @@
+.ligneProfil {
+    display: flex;
+    align-items: center;
+}
+
+.ligneProfil > h5 {
+    padding-right: 2em;
+}

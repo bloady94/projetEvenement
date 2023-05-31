@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} | Modifier le profil
+{% endblock %}
+
+{% block body %}
+ Test Update
+ {{ form_start(participantForm) }}
+ {{ form_row(participantForm.username) }}
+ {{ form_row(participantForm.plainPassword, {
+  label: 'Password'
+ }) }}
+ {{ form_row(participantForm.nom) }}
+ {{ form_row(participantForm.prenom) }}
+ {{ form_row(participantForm.telephone) }}
+ {{ form_row(participantForm.mail) }}
+ {{ form_row(participantForm.campus) }}
+ <button id="saveButton">Enregistrer</button>
+ {{ form_end(participantForm) }}
+ <button id="returnButton">Annuler</button>
+
+ <script>
+  document.getElementById('returnButton').addEventListener('click', function () {
+   window.location.href = "{{ path('profile_index') }}"
+  })
+ </script>
+{% endblock %}
+
+
+
