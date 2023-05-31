@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Repository\CampusRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/campus', name: 'app_')]
+#[Route('/campus', name: 'campus_')]
 class CampusController extends AbstractController
 {
-    #[Route('/', name: 'campus')]
-    public function index(CampusRepository $campusRepository): Response
+    #[Route('/', name: 'list')]
+    public function list(CampusRepository $campusRepository): Response
     {
         $campus = $campusRepository->findAll();
 
@@ -21,12 +22,17 @@ class CampusController extends AbstractController
         ]);
     }
 
-    #[Route('/add', name: 'addCampus')]
-    public function add(): Response
+    #[Route('/delete/{id}', name: 'delete', requirements: ['id' => '\d+'])]
+    public function delete(int $id, CampusRepository $campusRepository): Response
     {
-        return $this->render('campus/addCampus.html.twig', [
-            'controller_name' => 'CampusController',
-        ]);
-    }
+        $campus = $campusRepository->find($id);
+
+        $campusRepository->remove($campus, true);
+
+        $this->addFlash('success', $campus->getNom() . " vient d'être supprimé!");
+
+
+        return $this->redirectToRoute('campus_list');
+   }
 
 }

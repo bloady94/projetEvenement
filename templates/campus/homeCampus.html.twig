@@ -10,6 +10,7 @@
 
     <label for="recherche">Le nom contient : </label>
     <input type="search" name="" id="">
+{#    <input type="button" value="Rechercher">#}
 
 
     <table>
@@ -23,7 +24,7 @@
         {% for camp in campus %}
             <tr>
                 <td>{{ camp.nom }}</td>
-                <td><a href="https://www.instagram.com/evagssr/">test</a> - <a href="https://www.instagram.com/xxxtentacion/">test2</a></td>
+                <td><a href="https://www.instagram.com/evagssr/">Modifier</a> - <a href="{{ path('campus_delete', {'id': camp.id})}}">Supprimer</a></td>
             </tr>
         {% endfor %}
             

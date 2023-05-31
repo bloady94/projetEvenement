@@ -3,7 +3,7 @@
         {% if app.user %}
             {% if app.user.administrateur %}
         <li><a href="{{ path('app_ville') }}">Villes</a></li>
-        <li><a href="{{ path('app_campus') }}">Campus</a></li>
+        <li><a href="{{ path('campus_list') }}">Campus</a></li>
             {% endif %}
         <li><a href="{{ path('main_homepage') }}">Accueil</a></li>
         <li><a href="{{ path('profile_index') }}">Mon profil</a></li>
