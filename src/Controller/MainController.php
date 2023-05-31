@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\SortieRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,8 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     #[Route('/homepage', name: 'main_homepage')]
-    public function index(): Response
+    public function index(SortieRepository $sortieRepository): Response
     {
-        return $this->render('main/index.html.twig');
+        $sorties = $sortieRepository->findAll();
+        return $this->render('main/index.html.twig', [
+            'controller_name' => 'SortieController',
+            'sorties' => $sorties,
+        ]);
     }
 }
