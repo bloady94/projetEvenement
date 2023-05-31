@@ -88,6 +88,19 @@ class VilleController extends AbstractController
 
         return $this->redirectToRoute('ville_list');
     }
+    #[Route('/find', name: 'find')]
+    public function findVille(Request $request, VilleRepository $villeRepository): Response
+    {
+        $recherche = $request->query->get('recherche');
+        $ville = [];
 
+        if ($recherche) {
+            $ville = $villeRepository->findByNom($recherche);
+        }
+
+        return $this->render('ville/list.html.twig', [
+            'ville' => $ville,
+        ]);
+    }
 
 }

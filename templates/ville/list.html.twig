@@ -8,10 +8,11 @@
 {% block body %}
     <h2>Gérer les villes</h2>
 
-    {#  <label for="recherche">Le nom contient : </label>
-    <input type="search" name="" id="">#}
-    {#    <input type="button" value="Rechercher">#}
-
+    <form action="{{ path('ville_find') }}" >
+        <label for="recherche">Le nom contient : </label>
+        <input type="search" name="recherche">
+        <input type="submit" value="Rechercher">
+    </form>
 
     <table>
         <thead>
