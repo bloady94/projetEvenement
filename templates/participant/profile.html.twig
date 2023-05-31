@@ -18,6 +18,7 @@
 
     <button type="submit" class="btn">Enregistrer</button>
     {{ form_end(participantForm) }}#}
+    <h2>{{ app.user.userIdentifier }}</h2>
     <div class="ligneProfil">
         <h5>Prénom : </h5>
         {{ app.user.prenom }}
