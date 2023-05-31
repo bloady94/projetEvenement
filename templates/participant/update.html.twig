@@ -24,6 +24,9 @@
   document.getElementById('returnButton').addEventListener('click', function () {
    window.location.href = "{{ path('profile_index') }}"
   })
+   document.getElementById('saveButton').addEventListener('click', function () {
+    window.location.href = "{{ path('profile_update', {'id': app.user.id}) }}"
+  })
  </script>
 {% endblock %}
 
