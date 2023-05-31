@@ -1,14 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }} | Ajouter un campus
-
 {% endblock %}
 
 
 {% block body %}
-    <h1>Ajouter un campus</h1>
-    {%  embed 'views/form/default_form.html.twig'  with {'form' : campusForm}%}
+    {% embed 'views/form/default_form.html.twig' with {'form' : villeForm} %}
+        {% block h2 %} Ajouter une ville{% endblock %}
         {% block buttonLabel %}Ajouter {% endblock %}
     {% endembed %}
 {% endblock %}
