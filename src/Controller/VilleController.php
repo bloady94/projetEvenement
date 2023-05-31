@@ -6,13 +6,17 @@ use App\Entity\Ville;
 use App\Form\VilleType;
 use App\Repository\VilleRepository;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+#[IsGranted("ROLE_ADMIN")]
 #[Route('/ville', name: 'ville_')]
 class VilleController extends AbstractController
 {
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/add', name: 'add')]
     public function add(
         VilleRepository $villeRepository,
@@ -36,6 +40,7 @@ class VilleController extends AbstractController
             'villeForm' => $villeForm->createView()
         ]);
     }
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/', name: 'list')]
     public function list(VilleRepository $villeRepository): Response
     {
@@ -46,6 +51,7 @@ class VilleController extends AbstractController
             'ville' => $ville,
         ]);
     }
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/update/{id}', name: 'update')]
     public function update(
         VilleRepository $villeRepository,
@@ -68,7 +74,7 @@ class VilleController extends AbstractController
 
     }
 
-
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/delete/{id}', name: 'delete', requirements: ['id' => '\d+'])]
     public function delete(int $id, VilleRepository $villeRepository): Response
     {

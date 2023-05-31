@@ -5,14 +5,18 @@ namespace App\Controller;
 use App\Entity\Campus;
 use App\Form\CampusType;
 use App\Repository\CampusRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[IsGranted("ROLE_ADMIN")]
 #[Route('/campus', name: 'campus_')]
 class CampusController extends AbstractController
 {
+
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/', name: 'list')]
     public function list(CampusRepository $campusRepository): Response
     {
@@ -24,6 +28,7 @@ class CampusController extends AbstractController
         ]);
     }
 
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/add', name: 'add')]
     public function add(Request $request, CampusRepository $campusRepository): Response
     {
@@ -46,6 +51,7 @@ class CampusController extends AbstractController
 
 
 
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/update/{id}', name: 'update', requirements: ['id' => '\d+'])]
     public function update(Request $request, int $id, CampusRepository $campusRepository): Response
     {
@@ -67,6 +73,7 @@ class CampusController extends AbstractController
         ]);
     }
 
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/delete/{id}', name: 'delete', requirements: ['id' => '\d+'])]
     public function delete(int $id, CampusRepository $campusRepository): Response
     {
