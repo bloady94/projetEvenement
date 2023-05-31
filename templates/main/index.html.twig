@@ -3,5 +3,38 @@
 {% block title %}{{parent()}} | Accueil{% endblock %}
 
 {% block body %}
-    Connecté !
+<table>
+    <thead>
+    <tr>
+        <th>Nom de la sortie</th>
+        <th>Date de la sortie</th>
+        <th>Clôture</th>
+        <th>Inscrits/places</th>
+        <th>Etat</th>
+        <th>Inscrit</th>
+        <th>Organisateur</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for sortie in sorties %}
+        <tr>
+            <td>{{ sortie.nom }}</td>
+            <td>{{ sortie.dateHeureDebut | date('D, d M Y H:i:s')}}</td>
+            <td>{{ sortie.dateLimiteInscription | date('Y-m-d') }}</td>
+            <td>? / {{ sortie.nbInscriptionsMax }}</td>
+            <td>{{ sortie.etat.libelle }}</td>
+            <td> ? </td>
+            <td> A rajouter </td>
+            <td><a href="{{ path('sortie_show', {'id': sortie.id})}}">Afficher</a> - Autre</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <button id="createSortie">Créer une sortie</button>
+    <script>
+        document.getElementById('createSortie').addEventListener('click', function() {
+            window.location.href = "{{ path('sortie_add')}}"
+        })
+    </script>
 {% endblock %}

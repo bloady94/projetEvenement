@@ -15,8 +15,8 @@ class SortieController extends AbstractController
 {
     // Fonction qui d'accueil lorsqu'on clique sur "créer une sortie"
     // C'est un formulaire de création de sortie
-    #[Route('/', name: 'app_sortie')]
-    public function index(Request $request, SortieRepository $sortieRepository): Response
+    #[Route('/add', name: 'add')]
+    public function add(Request $request, SortieRepository $sortieRepository): Response
     {
         $sortie = new Sortie();
 
@@ -36,4 +36,15 @@ class SortieController extends AbstractController
             'sortieForm' => $sortieForm->createView()
         ]);
     }
+
+    #[Route('/{id}', name: 'show', requirements: ["id" => "\d+"])]
+    public function show(int $id, SortieRepository $sortieRepository): Response
+    {
+        $sortie = $sortieRepository->find($id);
+
+        return $this->render('sortie/show.html.twig', [
+            'sortie' => $sortie,
+        ]);
+    }
+
 }
