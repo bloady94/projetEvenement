@@ -66,6 +66,7 @@ class VilleController extends AbstractController
 
         if($villeForm->isSubmitted() && $villeForm->isValid()) {
             $villeRepository->save($ville, true);
+            return $this->redirectToRoute('ville_list');
         }
 
         return $this->render('ville/update.html.twig', [

@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/campus', name: 'campus_')]
 class CampusController extends AbstractController
 {
-
     #[IsGranted("ROLE_ADMIN")]
     #[Route('/', name: 'list')]
     public function list(CampusRepository $campusRepository): Response
@@ -33,13 +32,10 @@ class CampusController extends AbstractController
     public function add(Request $request, CampusRepository $campusRepository): Response
     {
         $campus = new Campus();
-
         $campusForm = $this->createForm(CampusType::class, $campus);
-
         $campusForm->handleRequest($request);
 
         if($campusForm->isSubmitted() && $campusForm->isValid()){
-
             $campusRepository->save($campus, true);
             $this->addFlash('success', 'Le campus vient d\'être ajouté!');
             return $this->redirectToRoute('campus_list');
@@ -49,25 +45,18 @@ class CampusController extends AbstractController
         ]);
     }
 
-
-
     #[IsGranted("ROLE_ADMIN")]
     #[Route('/update/{id}', name: 'update', requirements: ['id' => '\d+'])]
     public function update(Request $request, int $id, CampusRepository $campusRepository): Response
     {
         $campus = $campusRepository->find($id);
         $campusForm = $this->createForm(CampusType::class, $campus);
-
         $campusForm->handleRequest($request);
 
         if($campusForm->isSubmitted() && $campusForm->isValid()) {
             $campusRepository->save($campus, true);
-
             return $this->redirectToRoute('campus_list');
         }
-
-
-
         return $this->render('campus/updateCampus.html.twig', [
             'campusUpdateForm' => $campusForm->createView()
         ]);
@@ -78,13 +67,16 @@ class CampusController extends AbstractController
     public function delete(int $id, CampusRepository $campusRepository): Response
     {
         $campus = $campusRepository->find($id);
-
         $campusRepository->remove($campus, true);
-
         $this->addFlash('success', $campus->getNom() . " vient d'être supprimé!");
-
 
         return $this->redirectToRoute('campus_list');
    }
 
+    public function trouverCampus(){
+        // récupérer le contenu de la recherche
+
+
+        //chercher dans
+    }
 }
