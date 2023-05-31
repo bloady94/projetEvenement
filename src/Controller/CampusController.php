@@ -56,7 +56,11 @@ class CampusController extends AbstractController
 
         if($campusForm->isSubmitted() && $campusForm->isValid()) {
             $campusRepository->save($campus, true);
+
+            return $this->redirectToRoute('campus_list');
         }
+
+
 
         return $this->render('campus/updateCampus.html.twig', [
             'campusUpdateForm' => $campusForm->createView()
