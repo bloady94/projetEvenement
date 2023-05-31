@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} | Ville
+
+{% endblock %}
+
+{% block body %}
+    <h2>Gérer les villes</h2>
+
+    {#  <label for="recherche">Le nom contient : </label>
+    <input type="search" name="" id="">#}
+    {#    <input type="button" value="Rechercher">#}
+
+
+    <table>
+        <thead>
+        <tr>
+            <th>Ville</th>
+            <th>Code postal</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for v in ville %}
+            <tr>
+                <td>{{ v.nom }}</td>
+                <td>{{ v.codePostal }}</td>
+                <td><a href="https://www.instagram.com/evagssr/">Modifier</a> - <a href="{{ path('ville_delete', {'id': v.id})}}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+
+        <tr>
+            <td> </td>
+            <td><a href="https://www.youtube.com/watch?v=Tiu8Aro-U2I&t=42s">Ajouter</a></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+
+
+
+
+{% endblock %}
+

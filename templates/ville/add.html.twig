@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{% endblock %}
+
+
+{% block body %}
+    {% embed 'views/form/default_form.html.twig' with {'form' : villeForm} %}
+        {% block h2 %} Ajouter une ville{% endblock %}
+        {% block buttonLabel %}Ajouter {% endblock %}
+    {% endembed %}
+{% endblock %}
