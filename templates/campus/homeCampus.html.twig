@@ -8,8 +8,8 @@
 {% block body %}
     <h2>Gérer les campus</h2>
 
-    <label for="recherche">Le nom contient : </label>
-    <input type="search" name="" id="">
+{#    <label for="recherche">Le nom contient : </label>#}
+{#    <input type="search" name="" id="">#}
 {#    <input type="button" value="Rechercher">#}
 
 
@@ -30,7 +30,7 @@
             
             <tr>
                 <td> </td>
-                <td><a href="https://www.youtube.com/watch?v=Tiu8Aro-U2I&t=42s">Ajouter</a></td>
+                <td><a href="{{path('campus_add')}}">Ajouter</a></td>
             </tr>
 
         </tbody>

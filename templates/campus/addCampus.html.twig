@@ -5,9 +5,10 @@
 
 {% endblock %}
 
+
 {% block body %}
-<h2>ajouter un campus</h2>
+    <h1>Ajouter un campus</h1>
+    {%  embed 'views/form/default_form.html.twig'  with {'form' : campusForm}%}
+        {% block buttonLabel %}Ajouter {% endblock %}
+    {% endembed %}
 {% endblock %}
-
-
-
