@@ -15,10 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/campus', name: 'campus_')]
 class CampusController extends AbstractController
 {
+
     #[IsGranted("ROLE_ADMIN")]
     #[Route('/', name: 'list')]
     public function list(CampusRepository $campusRepository): Response
     {
+        // On récup tout ce qu'il y a dans la table campus.
         $campus = $campusRepository->findAll();
 
         return $this->render('campus/homeCampus.html.twig', [
@@ -73,10 +75,20 @@ class CampusController extends AbstractController
         return $this->redirectToRoute('campus_list');
    }
 
-    public function trouverCampus(){
-        // récupérer le contenu de la recherche
+    #[IsGranted("ROLE_ADMIN")]
+    #[Route('/trouver', name: 'trouverCampus')]
+    public function trouverCampus(Request $request, CampusRepository $campusRepository): Response
+    {
+        $recherche = $request->query->get('recherche');
+        $campus = [];
 
+        if ($recherche) {
+            $campus = $campusRepository->findByNom($recherche);
+        }
 
-        //chercher dans
+        return $this->render('campus/homeCampus.html.twig', [
+            'campus' => $campus,
+        ]);
     }
+
 }

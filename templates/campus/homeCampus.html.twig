@@ -8,38 +8,46 @@
 {% block body %}
     <h2>Gérer les campus</h2>
 
-    <label for="recherche">Le nom contient : </label>
-    <input type="search" name="" id="">
-    <input type="button" value="Rechercher">
+    {# on crée un formulaire et on désigne la route du controller ou on veut envoyer la data #}
+    <form action="{{ path('campus_trouverCampus') }}" >
+        <label for="recherche">Le nom contient : </label>
+        <input type="search" name="recherche">
+        <input type="submit" value="Rechercher">
+    </form>
 
-
-    <table>
-        <thead>
-        <tr>
-            <th>Campus</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for camp in campus %}
+    {# On vérifie que campus ne soit pas vide, si c'est le cas on affiche le contenu sous la forme
+        d'un tableau.#}
+    {% if campus is not empty %}
+        <table>
+            <thead>
             <tr>
-                <td>{{ camp.nom }}</td>
-                <td><a href="{{ path('campus_update', {'id': camp.id})}}">Modifier</a> - <a href="{{ path('campus_delete', {'id': camp.id})}}">Supprimer</a></td>
+                <th>Campus</th>
+                <th>Actions</th>
             </tr>
-        {% endfor %}
-            
-            <tr>
-                <td> </td>
-                <td><a href="{{path('campus_add')}}">Ajouter</a></td>
-            </tr>
+            </thead>
 
-        </tbody>
-    </table>
+            <tbody>
 
+            {# Initialisation d'une boucle for pour itérer sur chaque élément dans campus. #}
+            {% for camp in campus %}
+                <tr>
+                    <td>{{ camp.nom }}</td>
+                    <td>
+                        <a href="{{ path('campus_update', {'id': camp.id})}}">Modifier</a> -
+                        <a href="{{ path('campus_delete', {'id': camp.id})}}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+                <tr>
+                    <td> </td>
+                    <td><a href="{{path('campus_add')}}">Ajouter</a></td>
+                </tr>
+            </tbody>
+        </table>
 
-
-
-
-
+        {# S'il n'y a rien dans campus, alors on affiche le message suivant. #}
+    {% else %}
+        <p>Aucun campus trouvé.</p>
+    {% endif %}
 {% endblock %}
 
