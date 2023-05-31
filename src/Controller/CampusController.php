@@ -46,19 +46,22 @@ class CampusController extends AbstractController
 
 
 
-//    #[Route('/update/{id}', name: 'update', requirements: ['id' => '\d+'])]
-//    public function update(int $id, CampusRepository $campusRepository): Response
-//    {
-//        $campus = $campusRepository->find($id);
-//        $campusForm = $this->createForm(Camp)
-//
-//        $campusRepository->remove($campus, true);
-//
-//        $this->addFlash('success', $campus->getNom() . " vient d'être supprimé!");
-//
-//
-//        return $this->redirectToRoute('campus_list');
-//    }
+    #[Route('/update/{id}', name: 'update', requirements: ['id' => '\d+'])]
+    public function update(Request $request, int $id, CampusRepository $campusRepository): Response
+    {
+        $campus = $campusRepository->find($id);
+        $campusForm = $this->createForm(CampusType::class, $campus);
+
+        $campusForm->handleRequest($request);
+
+        if($campusForm->isSubmitted() && $campusForm->isValid()) {
+            $campusRepository->save($campus, true);
+        }
+
+        return $this->render('campus/updateCampus.html.twig', [
+            'campusUpdateForm' => $campusForm->createView()
+        ]);
+    }
 
     #[Route('/delete/{id}', name: 'delete', requirements: ['id' => '\d+'])]
     public function delete(int $id, CampusRepository $campusRepository): Response

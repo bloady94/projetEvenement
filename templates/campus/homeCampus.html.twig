@@ -24,7 +24,7 @@
         {% for camp in campus %}
             <tr>
                 <td>{{ camp.nom }}</td>
-                <td><a href="https://www.instagram.com/evagssr/">Modifier</a> - <a href="{{ path('campus_delete', {'id': camp.id})}}">Supprimer</a></td>
+                <td><a href="{{ path('campus_update', {'id': camp.id})}}">Modifier</a> - <a href="{{ path('campus_delete', {'id': camp.id})}}">Supprimer</a></td>
             </tr>
         {% endfor %}
             
