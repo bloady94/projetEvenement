@@ -26,13 +26,13 @@
             <tr>
                 <td>{{ v.nom }}</td>
                 <td>{{ v.codePostal }}</td>
-                <td><a href="https://www.instagram.com/evagssr/">Modifier</a> - <a href="{{ path('ville_delete', {'id': v.id})}}">Supprimer</a></td>
+                <td><a href="{{ path('ville_update', {'id': v.id}) }}">Modifier</a> - <a href="{{ path('ville_delete', {'id': v.id})}}">Supprimer</a></td>
             </tr>
         {% endfor %}
 
         <tr>
             <td> </td>
-            <td><a href="https://www.youtube.com/watch?v=Tiu8Aro-U2I&t=42s">Ajouter</a></td>
+            <td><a href='{{ path('ville_add') }}'>Ajouter</a></td>
         </tr>
 
         </tbody>

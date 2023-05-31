@@ -25,7 +25,12 @@ class VilleController extends AbstractController
 
         $villeForm->handleRequest($request);
 
-        $villeRepository->save($ville, true);
+        if($villeForm->isSubmitted() && $villeForm->isValid()){
+
+            $villeRepository->save($ville, true);
+            $this->addFlash('success', 'Le campus vient d\'être ajouté!');
+            return $this->redirectToRoute('ville_list');
+        }
 
         return $this->render('ville/add.html.twig', [
             'villeForm' => $villeForm->createView()
@@ -44,30 +49,37 @@ class VilleController extends AbstractController
     #[Route('/update/{id}', name: 'update')]
     public function update(
         VilleRepository $villeRepository,
-        int $id
+        int $id,
+        Request $request
     )
     {
         $ville = $villeRepository->find($id);
+        $villeForm = $this->createForm(VilleType::class, $ville);
 
-        $villeForm = $this->createForm(VilleType::class,$ville);
+        $villeForm->handleRequest($request);
 
-        $villeForm->get('nom','codePostal')->setData(explode('/',$ville->getNom(),$ville->getCodePostal()));
+        if($villeForm->isSubmitted() && $villeForm->isValid()) {
+            $villeRepository->save($ville, true);
+        }
 
         return $this->render('ville/update.html.twig', [
             'villeForm' => $villeForm->createView()
         ]);
     }
-    #[Route('/delete', name: 'delete', requirements: ['id' => '\d+'])]
-    public function delete(
-        VilleRepository $villeRepository,
-        int $id
-    ){
+
+
+    #[Route('/delete/{id}', name: 'delete', requirements: ['id' => '\d+'])]
+    public function delete(int $id, VilleRepository $villeRepository): Response
+    {
         $ville = $villeRepository->find($id);
 
         $villeRepository->remove($ville, true);
 
-        $this->addFlash('success',$ville->getNom() . "a été supprimé");
+        $this->addFlash('success', $ville->getNom() . " vient d'être supprimé!");
+
 
         return $this->redirectToRoute('ville_list');
     }
+
+
 }
