@@ -2,7 +2,16 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
+use App\Entity\Etat;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\Ville;
+use App\Repository\CampusRepository;
+use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
+use App\Repository\VilleRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -27,14 +36,36 @@ class SortieType extends AbstractType
             ])
             ->add('nbInscriptionsMax', TextType::class)
             ->add('infosSortie',TextType::class)
-            ->add('lieu', ChoiceType::class, [
-                'choices' => [
-                    'Rennes' => 'rennes',
-                    'Nantes' => 'nantes'
-                ],
-                'mapped' => false
+            ->add('lieu', EntityType::class, [
+                'class' => Lieu::class,
+                'choice_label' => 'nom',
+                'query_builder' => function(LieuRepository $lieuRepository){
+                $qb = $lieuRepository->createQueryBuilder('l');
+                $qb->addOrderBy('l.nom', 'ASC');
+                return $qb;
+                }
             ])
-//            ->add('campus', TextType::class)
+            ->add('etat', EntityType::class, [
+                'class' => Etat::class,
+                'choice_label' => 'libelle',
+                'query_builder' => function(EtatRepository $etatRepository){
+                $qb = $etatRepository->createQueryBuilder('e');
+                $qb->addOrderBy('e.libelle', 'ASC');
+                return $qb;
+                }
+
+            ])
+
+            ->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => 'nom',
+                'query_builder' => function(CampusRepository $campusRepository){
+                $qb = $campusRepository->createQueryBuilder('c');
+                $qb->addOrderBy('c.nom', 'ASC');
+                return $qb;
+                }
+            ])
+
         ;
     }
 
