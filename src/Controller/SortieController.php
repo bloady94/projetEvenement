@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,10 +39,10 @@ class SortieController extends AbstractController
     }
 
     #[Route('/{idSortie}', name: 'show', requirements: ["idSortie" => "\d+"])]
-    public function show(int $idSortie, SortieRepository $sortieRepository): Response
+    public function show(int $idSortie, SortieRepository $sortieRepository, ParticipantRepository $participantRepository): Response
     {
         $sortie = $sortieRepository->find($idSortie);
-        $sortieParticipants = $sortieRepository->findAllWithAssociations();
+        $sortieParticipants = $sortie->getParticipants();
 
         return $this->render('sortie/show.html.twig', [
             'sorties' => $sortie,
