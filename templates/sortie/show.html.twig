@@ -6,6 +6,75 @@
 
 {% block body %}
  Test détail
+ <div class="ligneFormulaire">
+  <h5>Nom de la sortie : </h5>
+  {{ sorties.nom }}
+ </div>
+ <div class="ligneFormulaire">
+  <h5>Date et heure de la sortie : </h5>
+  {{ sorties.dateHeureDebut | date('d/m/Y H:i') }}
+ </div>
+ <div class="ligneFormulaire">
+  <h5>Date limite d'inscription : </h5>
+  {{ sorties.dateLimiteInscription | date('d/m/Y') }}
+ </div>
+ <div class="ligneFormulaire">
+  <h5>Nombre de places : </h5>
+  {{ sorties.nbInscriptionsMax }}
+ </div>
+ <div class="ligneFormulaire">
+  <h5>Durée : </h5>
+  {{ sorties.duree }} minutes
+ </div>
+ <div class="ligneFormulaire">
+  <h5>Description et infos : </h5>
+ {{ sorties.infosSortie }}
+ </div>
+ <div class="ligneFormulaire">
+  <h5>Campus : </h5>
+ {{ sorties.campus.nom }}
+ </div>
+ <div class="ligneFormulaire">
+  <h5>Lieu : </h5>
+ {{ sorties.lieu.nom }}
+ </div>
+ <div class="ligneFormulaire">
+  <h5>Rue : </h5>
+ {{ sorties.lieu.rue }}
+ </div>
+ <div class="ligneFormulaire">
+  <h5>Code Postal : </h5>
+ {{ sorties.lieu.ville.codePostal }}
+ </div>
+ <div class="ligneFormulaire">
+  <h5>Latitude : </h5>
+ {{ sorties.lieu.latitude }}
+ </div>
+ <div class="ligneFormulaire">
+  <h5>Longitude : </h5>
+  {{ sorties.lieu.longitude }}
+ </div>
+
+
+<h5>Liste des participants inscrits : </h5>
+<table>
+ <thead>
+ <tr>
+  <th>Pseudo</th>
+  <th>Nom</th>
+ </tr>
+ </thead>
+ <tbody>
+ {% for sortie in sorties %}
+  {% for participant in sortie.participants %}
+   <tr>
+    <td>{{ participant.userIdentifier }}</td>
+    <td>{{ participant.nom }}</td>
+   </tr>
+   {% endfor %}
+ {% endfor %}
+ </tbody>
+</table>
 {% endblock %}
 
 

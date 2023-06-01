@@ -1,8 +1,8 @@
-.ligneProfil {
+.ligneFormulaire {
     display: flex;
     align-items: center;
 }
 
-.ligneProfil > h5 {
+.ligneFormulaire > h5 {
     padding-right: 2em;
 }

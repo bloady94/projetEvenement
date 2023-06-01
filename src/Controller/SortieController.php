@@ -37,13 +37,13 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'show', requirements: ["id" => "\d+"])]
-    public function show(int $id, SortieRepository $sortieRepository): Response
+    #[Route('/{idSortie}', name: 'show', requirements: ["idSortie" => "\d+"])]
+    public function show(int $idSortie, SortieRepository $sortieRepository): Response
     {
-        $sortie = $sortieRepository->find($id);
+        $sortie = $sortieRepository->find($idSortie);
 
         return $this->render('sortie/show.html.twig', [
-            'sortie' => $sortie,
+            'sorties' => $sortie,
         ]);
     }
 
