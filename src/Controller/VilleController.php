@@ -32,7 +32,7 @@ class VilleController extends AbstractController
         if($villeForm->isSubmitted() && $villeForm->isValid()){
 
             $villeRepository->save($ville, true);
-            $this->addFlash('success', 'Le campus vient d\'être ajouté!');
+            $this->addFlash('success', 'La ville vient d\'être ajoutée!');
             return $this->redirectToRoute('ville_list');
         }
 
