@@ -21,10 +21,10 @@ class LieuType extends AbstractType
             ->add('longitude')
             ->add('ville', EntityType::class,[
                 'class' => Ville::class,
-                'choice_label' => 'name',
+                'choice_label' => 'nom',
                 'query_builder' => function(VilleRepository $villeRepository){
                 $qb = $villeRepository->createQueryBuilder('v');
-                $qb->addOrderBy('v.name','ASC');
+                $qb->addOrderBy('v.nom','ASC');
                 return $qb;
                 }
             ])

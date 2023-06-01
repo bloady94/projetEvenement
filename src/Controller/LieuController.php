@@ -26,7 +26,12 @@ class LieuController extends AbstractController
 
         $lieuForm->handleRequest($request);
 
-        $lieuRepository->save($lieu, true);
+        if($lieuForm->isSubmitted() && $lieuForm->isValid()){
+
+            $lieuRepository->save($lieu, true);
+            $this->addFlash('success', 'Le lieu vient d\'être ajouté!');
+            return $this->redirectToRoute('main_homepage');
+        }
 
         return $this->render('lieu/add.html.twig', [
             'lieuForm' => $lieuForm->createView()
