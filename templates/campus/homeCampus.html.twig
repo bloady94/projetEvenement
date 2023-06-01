@@ -11,7 +11,9 @@
     {# on crée un formulaire et on désigne la route du controller ou on veut envoyer la data #}
     <form action="{{ path('campus_trouverCampus') }}" >
         <label for="recherche">Le nom contient : </label>
-        <input type="search" name="recherche">
+        <label>
+            <input type="search" name="recherche">
+        </label>
         <input type="submit" value="Rechercher">
     </form>
 
@@ -50,4 +52,3 @@
         <p>Aucun campus trouvé.</p>
     {% endif %}
 {% endblock %}
-

@@ -6,6 +6,7 @@ use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,8 +18,9 @@ class SortieController extends AbstractController
     // Fonction qui d'accueil lorsqu'on clique sur "créer une sortie"
     // C'est un formulaire de création de sortie
     #[Route('/add', name: 'add')]
-    public function add(Request $request, SortieRepository $sortieRepository): Response
+    public function add(Request $request, SortieRepository $sortieRepository, VilleRepository $villeRepository): Response
     {
+        $villes = $villeRepository->findAll();
         $sortie = new Sortie();
 
         // Création variable qui va créer le formulaire.
@@ -34,7 +36,8 @@ class SortieController extends AbstractController
         }
 
         return $this->render('sortie/sortie.html.twig', [
-            'sortieForm' => $sortieForm->createView()
+            'sortieForm' => $sortieForm->createView(),
+            'villes' => $villes
         ]);
     }
 

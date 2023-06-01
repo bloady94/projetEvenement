@@ -47,6 +47,23 @@ class SortieRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function trouverVille(){
+
+        $qb = $this->createQueryBuilder('v');
+        $qb->addOrderBy('v.nom' , 'ASC');
+        $qb->leftJoin('v.ville', 'ville');
+        $qb->addSelect('ville');
+
+        return $qb->getQuery();
+
+    }
+
+
+
+
+
+
+
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects
 //     */
