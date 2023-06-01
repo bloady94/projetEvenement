@@ -1,3 +1,8 @@
+body {
+    min-height: 100%;
+    min-width: 100%;
+}
+
 .ligneFormulaire {
     display: flex;
     align-items: center;
@@ -5,6 +10,53 @@
 
 .ligneFormulaire > h5 {
     padding-right: 2em;
-    color: #21001c;
+    color: #420030;
 }
 
+a {
+    text-decoration: none;
+    color: #de3401;
+}
+
+nav > ul > div > li {
+    list-style-type: none;
+}
+
+
+button:hover {
+    background-color: #ff3b00;
+}
+
+.barreNavigation {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+h2 {
+    color: #420030;
+    padding-top: 1em;
+    padding-left: 2em;
+    padding-bottom: 1em;
+}
+
+input[type="submit"]:hover {
+    background-color: #ff3b00;
+}
+
+form {
+    padding-left: 3em;
+}
+table {
+    margin-left: 50%;
+    margin-top: 5%;
+}
+
+table > thead > tr > th {
+    border: #420030 solid 2px;
+    padding: 1em;
+}
+
+td {
+    border: #420030 solid 1px;
+    padding: 1em;
+}
