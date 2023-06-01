@@ -18,32 +18,35 @@
 
     <button type="submit" class="btn">Enregistrer</button>
     {{ form_end(participantForm) }}#}
-    <h2>{{ app.user.userIdentifier }}</h2>
-    <div class="ligneFormulaire">
-        <h5>Prénom : </h5>
-        {{ app.user.prenom }}
-    </div>
-    <div class="ligneFormulaire">
-        <h5>Nom : </h5>
-        {{ app.user.nom }}
-    </div>
-    <div class="ligneFormulaire">
-        <h5>Téléphone : </h5>
-        {{ app.user.telephone }}
-    </div>
-    <div class="ligneFormulaire">
-        <h5>Email : </h5>
-        {{ app.user.mail }}
-    </div>
-    <div class="ligneFormulaire">
-        <h5>Campus </h5>
-        {{ app.user.campus.nom }}
+    <div class="recap">
+        <h2>{{ app.user.userIdentifier }}</h2>
+
+            <div class="ligneFormulaire">
+                <h5>Prénom : </h5>
+                <p>{{ app.user.prenom }}</p>
+            </div>
+            <div class="ligneFormulaire">
+                <h5>Nom : </h5>
+                <p>{{ app.user.nom }}</p>
+            </div>
+            <div class="ligneFormulaire">
+                <h5>Téléphone : </h5>
+                <p>{{ app.user.telephone }}</p>
+            </div>
+            <div class="ligneFormulaire">
+                <h5>Email : </h5>
+                <p>{{ app.user.mail }}</p>
+            </div>
+            <div class="ligneFormulaire">
+                <h5>Campus </h5>
+                <p>{{ app.user.campus.nom }}</p>
+            </div>
     </div>
 
-
-
+<div class="deuxBoutons">
     <button id="updateBouton">Modifier</button>
     <button id="retourBouton">Retour</button>
+</div>
 
     <script>
         document.getElementById('retourBouton').addEventListener('click', function () {

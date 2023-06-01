@@ -3,6 +3,8 @@
 {% block title %}{{parent()}} | Accueil{% endblock %}
 
 {% block body %}
+    <h3>Bonjour, {{ app.user.prenom }} !</h3>
+    <div class="tableauAccueil">
 <table>
     <thead>
     <tr>
@@ -20,8 +22,8 @@
     {% for sortie in sorties %}
         <tr>
             <td>{{ sortie.nom }}</td>
-            <td>{{ sortie.dateHeureDebut | date('D, d M Y H:i:s')}}</td>
-            <td>{{ sortie.dateLimiteInscription | date('Y-m-d') }}</td>
+            <td>{{ sortie.dateHeureDebut | date('d/m/Y H:i')}}</td>
+            <td>{{ sortie.dateLimiteInscription | date('d/m/Y') }}</td>
             <td>? / {{ sortie.nbInscriptionsMax }}</td>
             <td>{{ sortie.etat.libelle }}</td>
             <td> ? </td>
@@ -31,6 +33,7 @@
     {% endfor %}
     </tbody>
 </table>
+    </div>
     <button id="createSortie">Créer une sortie</button>
     <script>
         document.getElementById('createSortie').addEventListener('click', function() {
