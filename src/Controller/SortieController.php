@@ -3,9 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
+use App\Form\RegistrationFormType;
 use App\Form\SortieType;
-use App\Repository\CampusRepository;
-use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
@@ -32,6 +31,7 @@ class SortieController extends AbstractController
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()){
+            $sortie->setEtat(1);
             $sortieRepository->save($sortie, true);
             $this->addFlash('success', 'La sortie vient d\'être ajoutée');
             return $this->redirectToRoute('main_homepage');
@@ -65,5 +65,19 @@ class SortieController extends AbstractController
         ]);
     }
 
+    #[Route('/sortie/update/{idSortie}', name: 'update', requirements: ["idSortie" => "\d+"])]
+    public function update(Request $request, int $idSortie, SortieRepository $sortieRepository): Response
+    {
+        $sortie = $sortieRepository->find($idSortie);
+        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm->handleRequest($request);
 
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+            $sortieRepository->save($sortie, true);
+        }
+
+        return $this->render('sortie/update.html.twig', [
+            'sortieForm' => $sortieForm->createView()
+        ]);
+    }
 }

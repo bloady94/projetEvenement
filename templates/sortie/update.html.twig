@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Modifier la sortie
+{% endblock %}
+
+{% block body %}
+    {{ form_start(sortieForm) }}
+    {{ form_row(sortieForm.nom) }}
+    {{ form_row(sortieForm.dateHeureDebut) }}
+    {{ form_row(sortieForm.dateLimiteInscription) }}
+    {{ form_row(sortieForm.nbInscriptionsMax) }}
+    {{ form_row(sortieForm.duree) }}
+    {{ form_row(sortieForm.infosSortie) }}
+    {{ form_row(sortieForm.campus) }}
+    {{ form_row(sortieForm.lieu) }}
+    {{ form_end(sortieForm) }}
+    <div class="quatreBoutons">
+        <button id="saveButton">Enregistrer</button>
+        <button id="publishButton">Publier la sortie</button>
+        <button id="deleteButton">Supprimer la sortie</button>
+        <button id="returnButton">Annuler</button>
+    </div>
+
+<script>
+    document.getElementById('returnButton').addEventListener('click', function () {
+        window.location.href = "{{ path('main_homepage') }}"
+    })
+    document.getElementById('publishButton').addEventListener('click', function () {
+
+        window.location.href = "{{ path('main_homepage') }}"
+    })
+</script>
+{% endblock %}
+
+
+

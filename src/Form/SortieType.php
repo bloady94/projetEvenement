@@ -46,16 +46,6 @@ class SortieType extends AbstractType
                 return $qb;
                 }
             ])
-            ->add('etat', EntityType::class, [
-                'class' => Etat::class,
-                'choice_label' => 'libelle',
-                'query_builder' => function(EtatRepository $etatRepository){
-                $qb = $etatRepository->createQueryBuilder('e');
-                $qb->addOrderBy('e.libelle', 'ASC');
-                return $qb;
-                }
-
-            ])
 
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,

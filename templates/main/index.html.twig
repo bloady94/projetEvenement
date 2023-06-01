@@ -28,7 +28,7 @@
             <td>{{ sortie.etat.libelle }}</td>
             <td> ? </td>
             <td> A rajouter </td>
-            <td><a href="{{ path('sortie_show', {'idSortie': sortie.id})}}">Afficher</a> - <a href="{{ path('sortie_cancel', {'idSortie': sortie.id})}}">Annuler</a></td>
+            <td><a href="{{ path('sortie_show', {'idSortie': sortie.id})}}">Afficher</a> - <a href="{{ path('sortie_cancel', {'idSortie': sortie.id})}}">Annuler</a> - <a href="{{ path('sortie_update', {'idSortie': sortie.id})}}">Modifier</a></td>
         </tr>
     {% endfor %}
     </tbody>
