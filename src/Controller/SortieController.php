@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\CampusRepository;
+use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
@@ -54,12 +55,12 @@ class SortieController extends AbstractController
         ]);
     }
 
-    #[Route('/cancel/{id}', name: 'cancel', requirements: ["idSortie" => "\d+"])]
+    #[Route('/cancel/{idSortie}', name: 'cancel', requirements: ["idSortie" => "\d+"])]
     public function cancel(int $idSortie, SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->find($idSortie);
 
-        return $this->render('sortie/show.html.twig', [
+        return $this->render('sortie/annulation.html.twig', [
             'sorties' => $sortie,
         ]);
     }
