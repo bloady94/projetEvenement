@@ -5,21 +5,35 @@
 {% endblock %}
 
 {% block body %}
- Test Update
- {{ form_start(participantForm) }}
- {{ form_row(participantForm.username) }}
+   {{ form_start(participantForm) }}
+ <div class="ligneFormulaire">
+  {{ form_row(participantForm.username) }}
+ </div>
+ <div class="ligneFormulaire">
  {{ form_row(participantForm.plainPassword, {
   label: 'Password'
  }) }}
+ </div>
+ <div class="ligneFormulaire">
  {{ form_row(participantForm.nom) }}
+ </div>
+ <div class="ligneFormulaire">
  {{ form_row(participantForm.prenom) }}
+ </div>
+ <div class="ligneFormulaire">
  {{ form_row(participantForm.telephone) }}
+ </div>
+ <div class="ligneFormulaire">
  {{ form_row(participantForm.mail) }}
+ </div>
+ <div class="ligneFormulaire">
  {{ form_row(participantForm.campus) }}
- <button id="saveButton">Enregistrer</button>
+ </div>
  {{ form_end(participantForm) }}
+ <div class="deuxBoutons">
+  <button id="saveButton">Enregistrer</button>
  <button id="returnButton">Annuler</button>
-
+ </div>
  <script>
   document.getElementById('returnButton').addEventListener('click', function () {
    window.location.href = "{{ path('profile_index') }}"

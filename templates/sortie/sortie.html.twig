@@ -25,7 +25,7 @@
 
     <div class= "boutons">
         <button id="enregistrer">{% block buttonLabel1 %}Enregistrer{% endblock %}</button>
-        <button>{% block buttonLabel2 %}Publier la sortie{% endblock %}</button>
+        <button id="publier">{% block buttonLabel2 %}Publier la sortie{% endblock %}</button>
         <button id="annuler">{% block buttonLabel3 %}Annuler{% endblock %}</button>
 
 
@@ -40,6 +40,10 @@
         document.getElementById('enregistrer').addEventListener('click', function() {
             window.location.href =  "{{ path('profile_update', {'id': app.user.id}) }}";
 
+        })
+
+        document.getElementById('publier').addEventListener('click', function () {
+            window.location.href = "{{ path('main_homepage') }}"
         })
     </script>
 
