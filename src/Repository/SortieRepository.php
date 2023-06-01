@@ -42,10 +42,8 @@ class SortieRepository extends ServiceEntityRepository
     public function findAllWithAssociations()
     {
         $qb = $this->createQueryBuilder('s')
-            ->select('sortie, participant') // Sélectionnez les entités associées (a et b)
-            ->leftJoin('sortie_participant', 'sp') // Effectuez une jointure avec la table d'association TA
-            ->leftJoin('participant', 'p'); // Effectuez une jointure avec l'entité B associée
-
+            ->leftJoin('s.participants', 'participants') // Effectuez une jointure avec la table d'association TA
+            ->addSelect('participants');
         return $qb->getQuery()->getResult();
     }
 
