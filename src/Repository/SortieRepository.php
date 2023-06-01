@@ -39,6 +39,16 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllWithAssociations()
+    {
+        $qb = $this->createQueryBuilder('s')
+            ->select('sortie, participant') // Sélectionnez les entités associées (a et b)
+            ->leftJoin('sortie_participant', 'sp') // Effectuez une jointure avec la table d'association TA
+            ->leftJoin('participant', 'p'); // Effectuez une jointure avec l'entité B associée
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Sortie[] Returns an array of Sortie objects
 //     */

@@ -65,10 +65,9 @@
  </tr>
  </thead>
  <tbody>
- {% for sortie in sorties %}
-  {% for participant in sortie.participants %}
+ {% for eachOne in sortieParticipants %}
    <tr>
-    <td>{{ participant.userIdentifier }}</td>
+    <td>{{ eachOne.id }}</td>
     <td>{{ participant.nom }}</td>
    </tr>
    {% endfor %}

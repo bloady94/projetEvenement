@@ -41,9 +41,11 @@ class SortieController extends AbstractController
     public function show(int $idSortie, SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->find($idSortie);
+        $sortieParticipants = $sortieRepository->findAllWithAssociations();
 
         return $this->render('sortie/show.html.twig', [
             'sorties' => $sortie,
+            'sortieParticipants' => $sortieParticipants
         ]);
     }
 
