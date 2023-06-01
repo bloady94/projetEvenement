@@ -54,4 +54,15 @@ class SortieController extends AbstractController
         ]);
     }
 
+    #[Route('/cancel/{id}', name: 'cancel', requirements: ["idSortie" => "\d+"])]
+    public function cancel(int $idSortie, SortieRepository $sortieRepository): Response
+    {
+        $sortie = $sortieRepository->find($idSortie);
+
+        return $this->render('sortie/show.html.twig', [
+            'sorties' => $sortie,
+        ]);
+    }
+
+
 }

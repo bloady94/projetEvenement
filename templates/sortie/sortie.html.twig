@@ -37,7 +37,7 @@
             window.location.href = "{{ path('main_homepage') }}"
         })
 
-        document.getElementById('updateBouton').addEventListener('click', function() {
+        document.getElementById('enregistrer').addEventListener('click', function() {
             window.location.href =  "{{ path('profile_update', {'id': app.user.id}) }}";
 
         })
