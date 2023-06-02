@@ -70,12 +70,13 @@ class SortieController extends AbstractController
     public function cancel(Request $request, int $idSortie, SortieRepository $sortieRepository, EtatRepository $etatRepository): Response
     {
         $sortie = $sortieRepository->find($idSortie);
+        //chercher l'état à l'id 6 "Annulée"
         $etat = $etatRepository->find(6);
         $sortieForm = $this->createForm(SortieDescriptionType::class, $sortie);
         $sortieForm->handleRequest($request);
 
         if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-
+        //modifier l'état de la sortie à "Annulée"
             $sortie->setEtat($etat);
 
             $sortieRepository->save($sortie, true);
@@ -110,8 +111,10 @@ class SortieController extends AbstractController
     public function publish(int $idSortie, SortieRepository $sortieRepository, EtatRepository $etatRepository): Response
     {
         $sortie = $sortieRepository->find($idSortie);
+        //chercher l'état à l'id 2 "Ouverte"
         $etat = $etatRepository->find(2);
 
+        //modifier l'état de la sortie à "Ouverte"
             $sortie->setEtat($etat);
 
             $sortieRepository->save($sortie, true);
@@ -130,10 +133,12 @@ class SortieController extends AbstractController
         $participant = $participantRepository->findOneBy(['username' => $user]);
 
         if ($sortie->getEtat()->getId() == 2) {
+            //ajouter l'enregistrement dans la bdd
             $sortie->addParticipant($participant);
 
             //$message = "tu peux t'inscrire khey.";
         }
+        //valider la commande
         $entityManager->flush();
         //$sorties = $sortieRepository->findAll();
         return $this->redirectToRoute('main_homepage');
@@ -148,9 +153,10 @@ class SortieController extends AbstractController
         $participant = $participantRepository->findOneBy(['username' => $user]);
 
         if ($sortie->getEtat()->getId() == 2) {
+            //enlever l'enregistrement dans la bdd
             $sortie->removeParticipant($participant);
-            //$message = "tu peux t'inscrire khey.";
         }
+        //valider la commande
         $entityManager->flush();
 
         return $this->redirectToRoute('main_homepage');
