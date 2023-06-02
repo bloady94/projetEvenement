@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Repository\SortieRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,15 +21,7 @@ class MainController extends AbstractController
         ]);
     }
 
-    #[Route('/inscrire/{id}', name: 'main_inscrire', requirements: ["id" => "\d+"])]
-    public function inscrire(int $id, SortieRepository $sortieRepository): Response
-    {
-        $sortie = $sortieRepository->find($id);
-        $message ="";
 
-        if($sortie->getEtat() == 2){
-            $message = "tu peux t'inscrire khey.";
-        }
 
 //        if($sortie->getDateHeureDebut() <= date(now))
 
@@ -51,9 +42,7 @@ class MainController extends AbstractController
 //On ajoute le participant à la sortie
 
 
-            return $this->render('main/index.html.twig', [
-                'sorties' => $sortie,
-            ]);
+
 //       return $this->redirectToRoute('main_homepage');
-    }
+
 }

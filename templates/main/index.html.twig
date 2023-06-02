@@ -62,8 +62,8 @@
                 <a href="{{ path('sortie_cancel', {'idSortie': sortie.id})}}">Annuler</a> -
                 <a href="{{ path('sortie_update', {'idSortie': sortie.id})}}">Modifier</a>
                 <a href="">Se désister - </a>
-                <a href="{{ path('main_inscrire', {'id': sortie.id}) }}">S'inscrire - </a>
-                <a href="">Publier</a>
+                <a href="{{ path('sortie_inscrire', {'id': sortie.id}) }}">S'inscrire - </a>
+                <a href="{{ path('sortie_publish', {'idSortie': sortie.id}) }}">Publier</a>
             </td>
         </tr>
     {% endfor %}

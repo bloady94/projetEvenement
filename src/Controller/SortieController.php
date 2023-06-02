@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Sortie;
-use App\Form\RegistrationFormType;
+use App\Form\SortieDescriptionType;
 use App\Form\SortieType;
+use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,9 +21,10 @@ class SortieController extends AbstractController
     // Fonction qui d'accueil lorsqu'on clique sur "créer une sortie"
     // C'est un formulaire de création de sortie
     #[Route('/add', name: 'add')]
-    public function add(Request $request, SortieRepository $sortieRepository, VilleRepository $villeRepository): Response
+    public function add(Request $request, SortieRepository $sortieRepository, VilleRepository $villeRepository, EtatRepository $etatRepository): Response
     {
         $villes = $villeRepository->findAll();
+        $etat = $etatRepository->find(1);
         $sortie = new Sortie();
 
         // Création variable qui va créer le formulaire.
@@ -31,7 +34,7 @@ class SortieController extends AbstractController
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()){
-            $sortie->setEtat(1);
+            $sortie->setEtat($etat);
             $sortieRepository->save($sortie, true);
             $this->addFlash('success', 'La sortie vient d\'être ajoutée');
             return $this->redirectToRoute('main_homepage');
@@ -56,16 +59,28 @@ class SortieController extends AbstractController
     }
 
     #[Route('/cancel/{idSortie}', name: 'cancel', requirements: ["idSortie" => "\d+"])]
-    public function cancel(int $idSortie, SortieRepository $sortieRepository): Response
+    public function cancel(Request $request, int $idSortie, SortieRepository $sortieRepository, EtatRepository $etatRepository): Response
     {
         $sortie = $sortieRepository->find($idSortie);
+        $etat = $etatRepository->find(6);
+        $sortieForm = $this->createForm(SortieDescriptionType::class, $sortie);
+        $sortieForm->handleRequest($request);
+
+        if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+
+            $sortie->setEtat($etat);
+
+            $sortieRepository->save($sortie, true);
+            return $this->redirectToRoute('main_homepage');
+        }
 
         return $this->render('sortie/annulation.html.twig', [
-            'sorties' => $sortie,
+            'sortieForm' => $sortieForm->createView(),
+            'sorties' => $sortie
         ]);
     }
 
-    #[Route('/sortie/update/{idSortie}', name: 'update', requirements: ["idSortie" => "\d+"])]
+    #[Route('/update/{idSortie}', name: 'update', requirements: ["idSortie" => "\d+"])]
     public function update(Request $request, int $idSortie, SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->find($idSortie);
@@ -74,10 +89,45 @@ class SortieController extends AbstractController
 
         if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
             $sortieRepository->save($sortie, true);
+            return $this->redirectToRoute('main_homepage');
         }
 
         return $this->render('sortie/update.html.twig', [
-            'sortieForm' => $sortieForm->createView()
+            'sortieForm' => $sortieForm->createView(),
+            'sortie' => $sortie
         ]);
+    }
+
+    #[Route('/publish/{idSortie}}', name: 'publish', requirements: ["idSortie" => "\d+"])]
+    public function publish(int $idSortie, SortieRepository $sortieRepository, EtatRepository $etatRepository): Response
+    {
+        $sortie = $sortieRepository->find($idSortie);
+        $etat = $etatRepository->find(2);
+
+            $sortie->setEtat($etat);
+
+            $sortieRepository->save($sortie, true);
+
+        return $this->redirectToRoute('main_homepage');
+    }
+
+    #[Route('/inscrire/{id}', name: 'inscrire', requirements: ["id" => "\d+"])]
+    public function inscrire(int $id, SortieRepository $sortieRepository, ParticipantRepository $participantRepository, EntityManagerInterface $entityManager): Response
+    {
+        //Récupération de l'ID de la personne authentifiée
+
+
+        $sortie = $sortieRepository->find($id);
+        $user = $this->getUser()->getUserIdentifier();
+        $participant = $participantRepository->findOneBy(['username' => $user]);
+
+        if ($sortie->getEtat()->getId() == 2) {
+            $sortie->addParticipant($participant);
+
+            //$message = "tu peux t'inscrire khey.";
+        }
+        $entityManager->flush();
+        //$sorties = $sortieRepository->findAll();
+        return $this->redirectToRoute('main_homepage');
     }
 }

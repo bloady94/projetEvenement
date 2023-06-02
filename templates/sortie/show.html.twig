@@ -27,7 +27,11 @@
   {{ sorties.duree }} minutes
  </div>
  <div class="ligneFormulaire">
+  {% if sorties.etat.libelle == "Annulée" %}
+  <h5>Motif de l'annulation : </h5>
+  {% else %}
   <h5>Description et infos : </h5>
+  {% endif %}
  {{ sorties.infosSortie }}
  </div>
  <div class="ligneFormulaire">
