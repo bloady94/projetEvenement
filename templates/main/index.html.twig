@@ -65,7 +65,7 @@
             <td><a href="{{ path('sortie_show', {'idSortie': sortie.id})}}">Afficher</a> -
                 <a href="{{ path('sortie_cancel', {'idSortie': sortie.id})}}">Annuler</a> -
                 <a href="{{ path('sortie_update', {'idSortie': sortie.id})}}">Modifier</a>
-                <a href="">Se désister - </a>
+                <a href="{{ path('sortie_desinscrire', {'id': sortie.id}) }}">Se désister - </a>
                 <a href="{{ path('sortie_inscrire', {'id': sortie.id}) }}">S'inscrire - </a>
                 <a href="{{ path('sortie_publish', {'idSortie': sortie.id}) }}">Publier</a>
             </td>
