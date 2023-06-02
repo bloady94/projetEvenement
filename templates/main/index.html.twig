@@ -57,7 +57,8 @@
             <td>{% for participant in sortie.participants %}
                     {% set count = count + 1 %}
                 {% endfor %}
-                {{ count }}/ {{ sortie.nbInscriptionsMax }}</td>
+                {{ count }}
+                {% set count = 0 %}/ {{ sortie.nbInscriptionsMax }}</td>
             <td>{{ sortie.etat.libelle }}</td>
             <td> ? </td>
             <td> {{ sortie.organisateur.userIdentifier}} </td>
