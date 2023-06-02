@@ -18,8 +18,8 @@ class MainController extends AbstractController
         //trouver toutes les sorties
         $sorties = $sortieRepository->findAll();
 
-        //trouver la liste des participants à une sortie
-        $length = count($sorties);
+        $count = 0;
+
 
         //trouver le participant correspondant à la personne connectée
         $user = $this->getUser()->getId();
@@ -29,7 +29,7 @@ class MainController extends AbstractController
             'controller_name' => 'SortieController',
             'sorties' => $sorties,
             'participant' => $participant,
-
+            'count' => $count
         ]);
     }
 
