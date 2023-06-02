@@ -9,6 +9,7 @@ use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -107,6 +108,26 @@ class SortieController extends AbstractController
 
             $sortieRepository->save($sortie, true);
 
+        return $this->redirectToRoute('main_homepage');
+    }
+
+    #[Route('/inscrire/{id}', name: 'inscrire', requirements: ["id" => "\d+"])]
+    public function inscrire(int $id, SortieRepository $sortieRepository, ParticipantRepository $participantRepository, EntityManagerInterface $entityManager): Response
+    {
+        //Récupération de l'ID de la personne authentifiée
+
+
+        $sortie = $sortieRepository->find($id);
+        $user = $this->getUser()->getUserIdentifier();
+        $participant = $participantRepository->findOneBy(['username' => $user]);
+
+        if ($sortie->getEtat()->getId() == 2) {
+            $sortie->addParticipant($participant);
+
+            //$message = "tu peux t'inscrire khey.";
+        }
+        $entityManager->flush();
+        //$sorties = $sortieRepository->findAll();
         return $this->redirectToRoute('main_homepage');
     }
 }
