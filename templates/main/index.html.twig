@@ -4,6 +4,36 @@
 
 {% block body %}
     <h3>Bonjour, {{ app.user.prenom }} !</h3>
+    <H4>{% set trans_day_hash = {
+        "Monday": "Lundi",
+        "Tuesday": "Mardi",
+        "Wednesday": "Mercredi",
+        "Thursday": "Jeudi",
+        "Friday": "Vendredi",
+        "Saturday": "Samedi",
+        "Sunday": "Dimanche"
+    }
+    %}
+    {{ trans_day_hash["now"|date('l')] }}
+        {{ date().format('j') }}
+
+    {% set trans_month_hash = {
+        "January": "Janvier",
+        "February": "Février",
+        "March": "Mars",
+        "April": "Avril",
+        "May": "Mai",
+        "June": "Juin",
+        "August": "Août",
+        "September": "Septembre",
+        "October": "Octobre",
+        "November": "Novembre",
+        "December": "Décembre"
+    }
+    %}
+    {{ trans_month_hash["now"|date('F')] }}
+        {{ date().format('Y') }}</H4>
+
     <div class="tableauAccueil">
 <table>
     <thead>
