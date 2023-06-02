@@ -14,9 +14,10 @@
     {{ form_row(sortieForm.infosSortie) }}
     {{ form_row(sortieForm.campus) }}
     {{ form_row(sortieForm.lieu) }}
+    <button>Enregistrer</button>
     {{ form_end(sortieForm) }}
     <div class="quatreBoutons">
-        <button id="saveButton">Enregistrer</button>
+
         <button id="publishButton">Publier la sortie</button>
         <button id="deleteButton">Supprimer la sortie</button>
         <button id="returnButton">Annuler</button>
@@ -28,7 +29,7 @@
     })
     document.getElementById('publishButton').addEventListener('click', function () {
 
-        window.location.href = "{{ path('main_homepage') }}"
+        window.location.href = "{{ path('sortie_publish', {'idSortie': sortie.id}) }}"
     })
 </script>
 {% endblock %}

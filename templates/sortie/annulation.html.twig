@@ -17,13 +17,27 @@
         {{ sorties.lieu.nom }}, {{ sorties.lieu.rue }},
         {{ sorties.lieu.ville.codePostal }},{{ sorties.lieu.ville.nom }}
     </div>
-
-
-    <label for="annulSortie">Motif : </label>
+    {{ form_start(sortieForm) }}
+    {{ form_row(sortieForm.infosSortie, {
+        'label' : "Motif : ",
+        'value' : ''
+    }) }}
+    <button id="saveButton" onclick="">Enregistrer</button>
+    {{ form_end(sortieForm) }}
+{#    <label for="annulSortie">Motif : </label>
     <textarea id="annulSortie" name="annulationSortie"
                                                rows="5" cols="30">
 
-    </textarea>
+    </textarea>#}
+<div class="deuxBoutons">
+
+    <button id="cancelButton">Annuler</button>
+</div>
+    <script>
+        document.getElementById('cancelButton').addEventListener("click", function () {
+            window.location.href = "{{ path('main_homepage') }}"
+        })
+    </script>
 
 {% endblock %}
 

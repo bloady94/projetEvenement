@@ -29,11 +29,10 @@
  <div class="ligneFormulaire">
  {{ form_row(participantForm.campus) }}
  </div>
+ <button id="saveButton">Enregistrer</button>
  {{ form_end(participantForm) }}
- <div class="deuxBoutons">
-  <button id="saveButton">Enregistrer</button>
  <button id="returnButton">Annuler</button>
- </div>
+
  <script>
   document.getElementById('returnButton').addEventListener('click', function () {
    window.location.href = "{{ path('profile_index') }}"
