@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,12 +13,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     #[Route('/homepage', name: 'main_homepage')]
-    public function index(SortieRepository $sortieRepository): Response
+    public function index(SortieRepository $sortieRepository, ParticipantRepository $participantRepository): Response
     {
+        //trouver toutes les sorties
         $sorties = $sortieRepository->findAll();
+
+        //trouver la liste des participants à une sortie
+        $length = count($sorties);
+
+        //trouver le participant correspondant à la personne connectée
+        $user = $this->getUser()->getId();
+        $participant = $participantRepository->findOneBy(['username' => $user]);
+
         return $this->render('main/index.html.twig', [
             'controller_name' => 'SortieController',
             'sorties' => $sorties,
+            'participant' => $participant,
+
         ]);
     }
 

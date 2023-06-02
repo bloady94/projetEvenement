@@ -21,11 +21,14 @@ class SortieController extends AbstractController
     // Fonction qui d'accueil lorsqu'on clique sur "créer une sortie"
     // C'est un formulaire de création de sortie
     #[Route('/add', name: 'add')]
-    public function add(Request $request, SortieRepository $sortieRepository, VilleRepository $villeRepository, EtatRepository $etatRepository): Response
+    public function add(Request $request, SortieRepository $sortieRepository, VilleRepository $villeRepository, EtatRepository $etatRepository, ParticipantRepository $participantRepository): Response
     {
         $villes = $villeRepository->findAll();
         $etat = $etatRepository->find(1);
+        $user = $this->getUser()->getUserIdentifier();
+        $organisateur = $participantRepository->findOneBy(['username' => $user]);
         $sortie = new Sortie();
+
 
         // Création variable qui va créer le formulaire.
         $sortieForm = $this->createForm(SortieType::class, $sortie);
@@ -34,6 +37,7 @@ class SortieController extends AbstractController
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()){
+            $sortie->setOrganisateur($organisateur);
             $sortie->setEtat($etat);
             $sortieRepository->save($sortie, true);
             $this->addFlash('success', 'La sortie vient d\'être ajoutée');
