@@ -24,6 +24,7 @@ class SortieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $utilisateur = $options['utilisateur'];
         $builder
             ->add('nom', TextType::class)
             ->add('dateHeureDebut', DateType::class, [
@@ -50,6 +51,7 @@ class SortieType extends AbstractType
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
                 'choice_label' => 'nom',
+                'data' => $utilisateur->getCampus(),
                 'query_builder' => function(CampusRepository $campusRepository){
                 $qb = $campusRepository->createQueryBuilder('c');
                 $qb->addOrderBy('c.nom', 'ASC');
@@ -65,5 +67,7 @@ class SortieType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Sortie::class,
         ]);
+
+        $resolver->setRequired('utilisateur');
     }
 }
