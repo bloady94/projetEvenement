@@ -29,9 +29,13 @@ class SortieController extends AbstractController
         $organisateur = $participantRepository->findOneBy(['username' => $user]);
         $sortie = new Sortie();
 
+        // Récupération des données de l'utilisateur.
+        $utilisateur = $this->getUser();
 
         // Création variable qui va créer le formulaire.
-        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm = $this->createForm(SortieType::class, $sortie, [
+            'utilisateur' =>$utilisateur,
+        ]);
 
         // Extraction des données de la requête
         $sortieForm->handleRequest($request);
@@ -132,6 +136,23 @@ class SortieController extends AbstractController
         }
         $entityManager->flush();
         //$sorties = $sortieRepository->findAll();
+        return $this->redirectToRoute('main_homepage');
+    }
+
+
+    #[Route('/desinscrire/{id}', name: 'desinscrire', requirements: ["id" => "\d+"])]
+    public function desinscrire(int $id, SortieRepository $sortieRepository, ParticipantRepository $participantRepository, EntityManagerInterface $entityManager): Response
+    {
+        $sortie = $sortieRepository->find($id);
+        $user = $this->getUser()->getUserIdentifier();
+        $participant = $participantRepository->findOneBy(['username' => $user]);
+
+        if ($sortie->getEtat()->getId() == 2) {
+            $sortie->removeParticipant($participant);
+            //$message = "tu peux t'inscrire khey.";
+        }
+        $entityManager->flush();
+
         return $this->redirectToRoute('main_homepage');
     }
 }
