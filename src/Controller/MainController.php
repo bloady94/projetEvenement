@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
+use DateInterval;
+use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,15 +16,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     #[Route('/homepage', name: 'main_homepage')]
-    public function index(SortieRepository $sortieRepository, ParticipantRepository $participantRepository): Response
+    public function index(SortieRepository $sortieRepository, ParticipantRepository $participantRepository, EtatRepository $etatRepository): Response
     {
         //trouver toutes les sorties
         $sorties = $sortieRepository->findAll();
-
+        $etat = $etatRepository->find(7);
         //initialiser le compte des participants à 0, et l'inscrit à une chaîne de caractères vide
         $count = 0;
         $inscrit = "";
         $statut = "";
+
+        foreach ($sorties as $sortie) {
+            $dateDebut = $sortie->getDateHeureDebut();
+            // Ajouter trente jours à la date de début
+            $dateArchivage = clone $dateDebut; // Créer une copie de la date de début
+            $dateArchivage->add(new DateInterval('P30D')); // Ajouter trente jours
+
+            $dateDuJour = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
+            if ($dateArchivage <= $dateDuJour){
+                $sortie->setEtat($etat);
+            }
+        }
 
         //trouver le participant correspondant à la personne connectée
         $user = $this->getUser()->getId();
