@@ -92,8 +92,11 @@ class SortieController extends AbstractController
     #[Route('/update/{idSortie}', name: 'update', requirements: ["idSortie" => "\d+"])]
     public function update(Request $request, int $idSortie, SortieRepository $sortieRepository): Response
     {
+        $utilisateur = $this->getUser();
         $sortie = $sortieRepository->find($idSortie);
-        $sortieForm = $this->createForm(SortieType::class, $sortie);
+        $sortieForm = $this->createForm(SortieType::class, $sortie, [
+            'utilisateur' =>$utilisateur,
+        ]);
         $sortieForm->handleRequest($request);
 
         if($sortieForm->isSubmitted() && $sortieForm->isValid()) {

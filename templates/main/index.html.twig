@@ -54,13 +54,28 @@
             <td>{{ sortie.nom }}</td>
             <td>{{ sortie.dateHeureDebut | date('d/m/Y H:i')}}</td>
             <td>{{ sortie.dateLimiteInscription | date('d/m/Y') }}</td>
-            <td>{% for participant in sortie.participants %}
+            <td>
+                {% for participant in sortie.participants %}
                     {% set count = count + 1 %}
                 {% endfor %}
                 {{ count }}
-                {% set count = 0 %}/ {{ sortie.nbInscriptionsMax }}</td>
+                {% set count = 0 %}/ {{ sortie.nbInscriptionsMax }}
+            </td>
             <td>{{ sortie.etat.libelle }}</td>
-            <td> ? </td>
+            <td>
+                {% set break = false %}
+                {% for participant in sortie.participants %}
+                {% set inscrit = participant.userIdentifier %}
+                    {% if inscrit==app.user.userIdentifier %}
+                        {% set inscrit = "X" %}
+                        {% set break = true %}
+                    {% endif %}
+                    {% if not break %}
+                        {% set inscrit = "" %}
+                    {% endif %}
+                {% endfor %}
+                {{ inscrit }}
+            </td>
             <td> {{ sortie.organisateur.userIdentifier}} </td>
             <td><a href="{{ path('sortie_show', {'idSortie': sortie.id})}}">Afficher</a> -
                 <a href="{{ path('sortie_cancel', {'idSortie': sortie.id})}}">Annuler</a> -

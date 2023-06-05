@@ -18,8 +18,9 @@ class MainController extends AbstractController
         //trouver toutes les sorties
         $sorties = $sortieRepository->findAll();
 
-        //initialiser le compte des participants à 0
+        //initialiser le compte des participants à 0, et l'inscrit à une chaîne de caractères vide
         $count = 0;
+        $inscrit = "";
 
         //trouver le participant correspondant à la personne connectée
         $user = $this->getUser()->getId();
@@ -29,7 +30,8 @@ class MainController extends AbstractController
             'controller_name' => 'SortieController',
             'sorties' => $sorties,
             'participant' => $participant,
-            'count' => $count
+            'count' => $count,
+            "inscrit" => $inscrit
         ]);
     }
 
