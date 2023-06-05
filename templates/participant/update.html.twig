@@ -11,7 +11,7 @@
  </div>
  <div class="ligneFormulaire">
  {{ form_row(participantForm.plainPassword, {
-  label: 'Password'
+  label: 'Mot de passe '
  }) }}
  </div>
  <div class="ligneFormulaire">
@@ -28,6 +28,11 @@
  </div>
  <div class="ligneFormulaire">
  {{ form_row(participantForm.campus) }}
+ </div>
+ <div class="ligneFormulaire">
+  {{ form_row(participantForm.photo, {
+  label: 'Photo de profil '
+ }) }}
  </div>
  <button id="saveButton">Enregistrer</button>
  {{ form_end(participantForm) }}

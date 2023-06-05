@@ -25,8 +25,17 @@ class ParticipantController extends AbstractController
         $participantForm->handleRequest($request);
 
         if($participantForm->isSubmitted() && $participantForm->isValid()) {
+            $file = $participantForm->get('photo')->getData();
+            if($file){
+                $newFileName = $participant->getNom() . "-" . $participant->getPrenom() . "-" . uniqid().".".$file->guessExtension();
+                $file->move('img/photo', $newFileName);
+                $participant->setPhoto($newFileName);
+
+            }
             $participantRepository->save($participant, true);
+            return $this->redirectToRoute('profile_index');
         }
+
 
         return $this->render('participant/update.html.twig', [
             'participantForm' => $participantForm->createView()

@@ -140,3 +140,15 @@ body > .container {
 input[type="search"]:focus {
     box-shadow: #fce7e0 0 0 5px 5px;
 }
+
+
+.imgProfil {
+    display: flex;
+    justify-content: center;
+}
+.imgProfil > img {
+    border: #de3401 2px inset;
+    border-radius: 50%;
+    height: 30%;
+    width: 30%;
+}

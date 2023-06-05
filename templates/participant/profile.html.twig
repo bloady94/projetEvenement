@@ -20,7 +20,14 @@
     {{ form_end(participantForm) }}#}
     <div class="recap">
         <h2>{{ app.user.userIdentifier }}</h2>
-
+        {% set photoProfil = app.user.photo %}
+        {% if photoProfil == null %}
+        <img src="{{ asset('img/photo/default.png') }}" alt="sansPhotoProfil">
+        {% else %}
+            <div class="imgProfil">
+                <img src="{{ asset('img/photo/' ~ app.user.photo) }}" alt="sansPhotoProfil">
+            </div>
+        {% endif %}
             <div class="ligneFormulaire">
                 <h5>Prénom : </h5>
                 <p>{{ app.user.prenom }}</p>
