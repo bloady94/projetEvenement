@@ -4,13 +4,16 @@ namespace App\Controller;
 
 use App\Form\RegistrationFormType;
 use App\Repository\ParticipantRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[IsGranted("ROLE_USER")]
 class ParticipantController extends AbstractController
 {
+
     #[Route('/profile', name: 'profile_index')]
     public function index(): Response
     {

@@ -16,7 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class CampusController extends AbstractController
 {
 
-    #[IsGranted("ROLE_ADMIN")]
     #[Route('/', name: 'list')]
     public function list(CampusRepository $campusRepository): Response
     {
@@ -29,7 +28,6 @@ class CampusController extends AbstractController
         ]);
     }
 
-    #[IsGranted("ROLE_ADMIN")]
     #[Route('/add', name: 'add')]
     public function add(Request $request, CampusRepository $campusRepository): Response
     {
@@ -47,7 +45,6 @@ class CampusController extends AbstractController
         ]);
     }
 
-    #[IsGranted("ROLE_ADMIN")]
     #[Route('/update/{id}', name: 'update', requirements: ['id' => '\d+'])]
     public function update(Request $request, int $id, CampusRepository $campusRepository): Response
     {
@@ -64,7 +61,6 @@ class CampusController extends AbstractController
         ]);
     }
 
-    #[IsGranted("ROLE_ADMIN")]
     #[Route('/delete/{id}', name: 'delete', requirements: ['id' => '\d+'])]
     public function delete(int $id, CampusRepository $campusRepository): Response
     {
@@ -75,7 +71,6 @@ class CampusController extends AbstractController
         return $this->redirectToRoute('campus_list');
    }
 
-    #[IsGranted("ROLE_ADMIN")]
     #[Route('/trouver', name: 'trouverCampus')]
     public function trouverCampus(Request $request, CampusRepository $campusRepository): Response
     {

@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/ville', name: 'ville_')]
 class VilleController extends AbstractController
 {
-    #[IsGranted("ROLE_ADMIN")]
+
     #[Route('/add', name: 'add')]
     public function add(
         VilleRepository $villeRepository,
@@ -40,7 +40,7 @@ class VilleController extends AbstractController
             'villeForm' => $villeForm->createView()
         ]);
     }
-    #[IsGranted("ROLE_ADMIN")]
+
     #[Route('/', name: 'list')]
     public function list(VilleRepository $villeRepository): Response
     {
@@ -51,7 +51,7 @@ class VilleController extends AbstractController
             'ville' => $ville,
         ]);
     }
-    #[IsGranted("ROLE_ADMIN")]
+
     #[Route('/update/{id}', name: 'update')]
     public function update(
         VilleRepository $villeRepository,
@@ -75,7 +75,6 @@ class VilleController extends AbstractController
 
     }
 
-    #[IsGranted("ROLE_ADMIN")]
     #[Route('/delete/{id}', name: 'delete', requirements: ['id' => '\d+'])]
     public function delete(int $id, VilleRepository $villeRepository): Response
     {
@@ -88,6 +87,7 @@ class VilleController extends AbstractController
 
         return $this->redirectToRoute('ville_list');
     }
+
     #[Route('/find', name: 'find')]
     public function findVille(Request $request, VilleRepository $villeRepository): Response
     {
