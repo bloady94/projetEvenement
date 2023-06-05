@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Profil de {{ participant.userIdentifier }}
+{% endblock %}
+
+{% block body %}
+    <div class="recap">
+        <h2>{{ participant.userIdentifier }}</h2>
+        {% set photoProfil = participant.photo %}
+        {% if photoProfil == null %}
+            <img src="{{ asset('img/photo/default.png') }}" alt="sansPhotoProfil">
+        {% else %}
+            <div class="imgProfil">
+                <img src="{{ asset('img/photo/' ~ participant.photo) }}" alt="sansPhotoProfil">
+            </div>
+        {% endif %}
+        <div class="ligneFormulaire">
+            <h5>Prénom : </h5>
+            <p>{{ participant.prenom }}</p>
+        </div>
+        <div class="ligneFormulaire">
+            <h5>Nom : </h5>
+            <p>{{ participant.nom }}</p>
+        </div>
+        <div class="ligneFormulaire">
+            <h5>Téléphone : </h5>
+            <p>{{ participant.telephone }}</p>
+        </div>
+        <div class="ligneFormulaire">
+            <h5>Email : </h5>
+            <p>{{ participant.mail }}</p>
+        </div>
+        <div class="ligneFormulaire">
+            <h5>Campus </h5>
+            <p>{{ participant.campus.nom }}</p>
+        </div>
+    </div>
+    <div class="deuxBoutons">
+        <button id="retourBouton">Retour</button>
+    </div>
+<script>
+    document.getElementById('retourBouton').addEventListener('click', function () {
+        window.location.href = "{{ path('main_homepage') }}"
+
+    })
+</script>
+{% endblock %}
+
+
+
