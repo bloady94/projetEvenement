@@ -21,6 +21,7 @@ class MainController extends AbstractController
         //initialiser le compte des participants à 0, et l'inscrit à une chaîne de caractères vide
         $count = 0;
         $inscrit = "";
+        $statut = "";
 
         //trouver le participant correspondant à la personne connectée
         $user = $this->getUser()->getId();
@@ -31,7 +32,8 @@ class MainController extends AbstractController
             'sorties' => $sorties,
             'participant' => $participant,
             'count' => $count,
-            "inscrit" => $inscrit
+            "inscrit" => $inscrit,
+            "statut" => $statut
         ]);
     }
 
