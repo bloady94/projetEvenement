@@ -85,8 +85,17 @@
                 {% endif %}
 
                 {% if sortie.etat.id == 2  %}
-                    <a href="{{ path('sortie_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
-                    <a href="{{ path('sortie_desinscrire', {'id': sortie.id}) }}">Se désister</a>
+                    <a href="{{ path('sortie_show', {'idSortie': sortie.id})}}">Afficher</a>
+                    {% for participant in sortie.participants %}
+                        {% if inscrit=="X" %}
+                            <a href="{{ path('sortie_desinscrire', {'id': sortie.id}) }}">Se désister</a>
+                        {% endif %}
+
+                        {% if inscrit=="" %}
+                            <a href="{{ path('sortie_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
+                        {% endif %}
+                    {% endfor %}
+
                 {% endif %}
 
                 {% if sortie.etat.id == 3  %}
