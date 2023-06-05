@@ -7,9 +7,18 @@
 
 {% block body %}
     <h1>Ajouter une sortie</h1>
+    Commencez par
+        <a href="{{ path('lieu_add') }}"><input type="button" value="Ajouter un lieu"></a>
+{#    <button id="show-lieu-form-btn" type="button">Ajouter un lieu</button>#}
+{#    <form id="lieu-form" style="display: none;">#}
+{#        {{ form_start(lieuForm) }}#}
+{#    <button id="lieu-form" type="button">Ajouter</button>#}
+{#        {{ form_end(lieuForm) }}#}
 
     {{ form_start(sortieForm) }}
     {{ form_widget(sortieForm) }}
+
+
 
     <div class="ville">
         <label for="ville">Ville :
@@ -20,18 +29,55 @@
             </select>
         </label>
 
-        <a href="{{ path('lieu_add') }}"><input type="button" value="Ajouter un lieu"></a>
+
     </div>
 
     <div class= "boutons">
         <button id="enregistrer">{% block buttonLabel1 %}Enregistrer{% endblock %}</button>
-        <button id="annuler">{% block buttonLabel3 %}Annuler{% endblock %}</button>
+
 
 
     </div>
     {{ form_end(sortieForm) }}
 
+    <button id="annuler">{% block buttonLabel3 %}Annuler{% endblock %}</button>
+
     <script>
+        //deux boutons : premier pour afficher le formulaire via pop up, second pour submit le formulaire
+        {#const showLieuFormBtn = document.getElementById('show-lieu-form-btn');#}
+        {#const lieuForm = document.getElementById('lieu-form');#}
+
+        {#// gestion du click event#}
+        {#showLieuFormBtn.addEventListener('click', function() {#}
+        {#    // si le formulaire est non visible alors rendu visible via le block display sinon rendu non visible#}
+        {#    if (lieuForm.style.display === 'none') {#}
+        {#        lieuForm.style.display = 'block';#}
+        {#    } else {#}
+        {#        lieuForm.style.display = 'none';#}
+        {#    }#}
+        {#});#}
+
+        {#// gère le submit du formulaire#}
+        {#lieuForm.addEventListener('click', function(event) {#}
+        {#    event.preventDefault(); // empêche les formulaires vides#}
+
+        {#    // récupère la data du formulaire#}
+        {#    const formData = new FormData(lieuForm);#}
+
+        {#    // envoie la data grace à AJAX#}
+        {#    fetch('{{ path('lieu_add') }}', {#}
+        {#        method: 'POST',#}
+        {#        body: formData#}
+        {#    })#}
+        {#        .then(response => response.json())#}
+        {#        .then(data => {#}
+        {#            // Gère la réponse du serv#}
+        {#            console.log(data);#}
+        {#        })#}
+        {#        .catch(error => {#}
+        {#            console.error(error);#}
+        {#        });#}
+        {#});#}
         document.getElementById('annuler').addEventListener('click', function () {
             window.location.href = "{{ path('main_homepage') }}"
         })

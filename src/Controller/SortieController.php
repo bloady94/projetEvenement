@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Form\LieuType;
 use App\Form\SortieDescriptionType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
+use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
@@ -21,7 +24,13 @@ class SortieController extends AbstractController
     // Fonction qui d'accueil lorsqu'on clique sur "créer une sortie"
     // C'est un formulaire de création de sortie
     #[Route('/add', name: 'add')]
-    public function add(Request $request, SortieRepository $sortieRepository, VilleRepository $villeRepository, EtatRepository $etatRepository, ParticipantRepository $participantRepository): Response
+    public function add(Request $request,
+                        SortieRepository $sortieRepository,
+                        VilleRepository $villeRepository,
+                        EtatRepository $etatRepository,
+                        ParticipantRepository $participantRepository,
+                        LieuRepository $lieuRepository
+    ): Response
     {
         $villes = $villeRepository->findAll();
         $etat = $etatRepository->find(1);
@@ -29,6 +38,20 @@ class SortieController extends AbstractController
         $organisateur = $participantRepository->findOneBy(['username' => $user]);
         $sortie = new Sortie();
 
+//        Ajax request
+
+//        $lieu = new Lieu();
+//
+//        $lieuForm = $this->createForm(LieuType::class, $lieu);
+//
+//        $lieuForm->handleRequest($request);
+//
+//        if($lieuForm->isSubmitted() && $lieuForm->isValid()){
+//
+//            $lieuRepository->save($lieu, true);
+//            $this->addFlash('success', 'Le lieu vient d\'être ajouté!');
+//            return $this->redirectToRoute('sortie_add');
+//        }
         // Récupération des données de l'utilisateur.
         $utilisateur = $this->getUser();
 
@@ -50,7 +73,8 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/sortie.html.twig', [
             'sortieForm' => $sortieForm->createView(),
-            'villes' => $villes
+            'villes' => $villes,
+            //'lieuForm' => $lieuForm->createView()
         ]);
     }
 

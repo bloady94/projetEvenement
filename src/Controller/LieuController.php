@@ -17,7 +17,7 @@ class LieuController extends AbstractController
     #[Route('/add', name: 'add')]
     public function add(
         LieuRepository $lieuRepository,
-        Request $request,
+        Request        $request,
     ): Response
     {
         $lieu = new Lieu();
@@ -26,7 +26,7 @@ class LieuController extends AbstractController
 
         $lieuForm->handleRequest($request);
 
-        if($lieuForm->isSubmitted() && $lieuForm->isValid()){
+        if ($lieuForm->isSubmitted() && $lieuForm->isValid()) {
 
             $lieuRepository->save($lieu, true);
             $this->addFlash('success', 'Le lieu vient d\'être ajouté!');
