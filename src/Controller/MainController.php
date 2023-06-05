@@ -20,7 +20,9 @@ class MainController extends AbstractController
     {
         //trouver toutes les sorties
         $sorties = $sortieRepository->findAll();
-        $etat = $etatRepository->find(7);
+        $etatArchive = $etatRepository->find(7);
+        $etatCloture = $etatRepository->find(3);
+        $etatPassee = $etatRepository->find(5);
         //initialiser le compte des participants à 0, et l'inscrit à une chaîne de caractères vide
         $count = 0;
         $inscrit = "";
@@ -28,13 +30,20 @@ class MainController extends AbstractController
 
         foreach ($sorties as $sortie) {
             $dateDebut = $sortie->getDateHeureDebut();
+            $dateCloture = $sortie->getDateLimiteInscription();
             // Ajouter trente jours à la date de début
             $dateArchivage = clone $dateDebut; // Créer une copie de la date de début
             $dateArchivage->add(new DateInterval('P30D')); // Ajouter trente jours
 
             $dateDuJour = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
+            if ($dateCloture <= $dateDuJour){
+                $sortie->setEtat($etatCloture);
+            }
+            if ($dateDebut < $dateDuJour){
+                $sortie->setEtat($etatPassee);
+            }
             if ($dateArchivage <= $dateDuJour){
-                $sortie->setEtat($etat);
+                $sortie->setEtat($etatArchive);
             }
         }
 
