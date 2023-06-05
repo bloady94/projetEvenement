@@ -41,4 +41,14 @@ class ParticipantController extends AbstractController
             'participantForm' => $participantForm->createView()
         ]);
     }
+
+    #[Route('/profile/{id}', name: 'profile_show', requirements: ["id" => "\d+"])]
+    public function show(int $id, ParticipantRepository $participantRepository): Response
+    {
+        $participant = $participantRepository->find($id);
+
+        return $this->render('participant/show.html.twig', [
+                'participant' => $participant
+        ]);
+    }
 }
