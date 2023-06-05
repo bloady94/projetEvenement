@@ -95,18 +95,22 @@ class SortieController extends AbstractController
     #[Route('/cancel/{idSortie}', name: 'cancel', requirements: ["idSortie" => "\d+"])]
     public function cancel(Request $request, int $idSortie, SortieRepository $sortieRepository, EtatRepository $etatRepository): Response
     {
+        $utilisateur = $this->getUser();
         $sortie = $sortieRepository->find($idSortie);
+        $organisateur = $sortie->getOrganisateur();
         //chercher l'état à l'id 6 "Annulée"
         $etat = $etatRepository->find(6);
         $sortieForm = $this->createForm(SortieDescriptionType::class, $sortie);
         $sortieForm->handleRequest($request);
 
-        if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-        //modifier l'état de la sortie à "Annulée"
-            $sortie->setEtat($etat);
+        if ($organisateur === $utilisateur) {
+            if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+                //modifier l'état de la sortie à "Annulée"
+                $sortie->setEtat($etat);
 
-            $sortieRepository->save($sortie, true);
-            return $this->redirectToRoute('main_homepage');
+                $sortieRepository->save($sortie, true);
+                return $this->redirectToRoute('main_homepage');
+            }
         }
 
         return $this->render('sortie/annulation.html.twig', [
@@ -120,16 +124,18 @@ class SortieController extends AbstractController
     {
         $utilisateur = $this->getUser();
         $sortie = $sortieRepository->find($idSortie);
+        $organisateur = $sortie->getOrganisateur();
+
         $sortieForm = $this->createForm(SortieType::class, $sortie, [
             'utilisateur' =>$utilisateur,
         ]);
         $sortieForm->handleRequest($request);
-
-        if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-            $sortieRepository->save($sortie, true);
-            return $this->redirectToRoute('main_homepage');
+        if ($organisateur === $utilisateur){
+            if($sortieForm->isSubmitted() && $sortieForm->isValid()) {
+                $sortieRepository->save($sortie, true);
+                return $this->redirectToRoute('main_homepage');
+            }
         }
-
         return $this->render('sortie/update.html.twig', [
             'sortieForm' => $sortieForm->createView(),
             'sortie' => $sortie
