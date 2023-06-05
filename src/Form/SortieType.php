@@ -3,17 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Campus;
-use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
-use App\Entity\Ville;
 use App\Repository\CampusRepository;
-use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
-use App\Repository\VilleRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -27,7 +23,7 @@ class SortieType extends AbstractType
         $utilisateur = $options['utilisateur'];
         $builder
             ->add('nom', TextType::class)
-            ->add('dateHeureDebut', DateType::class, [
+            ->add('dateHeureDebut', DateTimeType::class, [
                 'html5' => true,
                 'widget' => 'single_text'
             ])
