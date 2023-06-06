@@ -15,27 +15,40 @@ use Symfony\Component\Routing\Annotation\Route;
 #[IsGranted("ROLE_USER")]
 class MainController extends AbstractController
 {
+    /**
+     * @throws \Exception
+     */
     #[Route('/homepage', name: 'main_homepage')]
     public function index(SortieRepository $sortieRepository, ParticipantRepository $participantRepository, EtatRepository $etatRepository): Response
     {
         //trouver toutes les sorties
         $sorties = $sortieRepository->findAll();
+
+        //établir une variable pour chaque etat
         $etatArchive = $etatRepository->find(7);
         $etatCloture = $etatRepository->find(3);
         $etatPassee = $etatRepository->find(5);
+        $etatEnCours = $etatRepository->find(4);
+
+
+
         //initialiser le compte des participants à 0, et l'inscrit à une chaîne de caractères vide
         $count = 0;
-        $inscrit = "";
-        $statut = "";
 
         foreach ($sorties as $sortie) {
+            $duree = $sortie->getDuree();
             $dateDebut = $sortie->getDateHeureDebut();
             $dateCloture = $sortie->getDateLimiteInscription();
             // Ajouter trente jours à la date de début
             $dateArchivage = clone $dateDebut; // Créer une copie de la date de début
             $dateArchivage->add(new DateInterval('P30D')); // Ajouter trente jours
 
+            $dateFin = clone $dateDebut;
+            $dateFin->add(new DateInterval('PT'.$duree.'M'));
+
             $dateDuJour = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
+            $dateHeureNow = DateTime::createFromFormat('Y-m-d H:i', date('Y-m-d H:i'));
+
             if ($dateCloture <= $dateDuJour){
                 $sortie->setEtat($etatCloture);
             }
@@ -44,6 +57,9 @@ class MainController extends AbstractController
             }
             if ($dateArchivage <= $dateDuJour){
                 $sortie->setEtat($etatArchive);
+            }
+            if ($dateDebut <= $dateHeureNow && $dateHeureNow <= $dateFin){
+                $sortie->setEtat($etatEnCours);
             }
         }
 
@@ -55,9 +71,7 @@ class MainController extends AbstractController
             'controller_name' => 'SortieController',
             'sorties' => $sorties,
             'participant' => $participant,
-            'count' => $count,
-            "inscrit" => $inscrit,
-            "statut" => $statut
+            'count' => $count
         ]);
     }
 

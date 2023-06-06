@@ -12,6 +12,7 @@ use App\Repository\LieuRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use \Symfony\Component\HttpFoundation\Request;
@@ -167,7 +168,12 @@ class SortieController extends AbstractController
         $user = $this->getUser()->getUserIdentifier();
         $participant = $participantRepository->findOneBy(['username' => $user]);
 
-        if ($sortie->getEtat()->getId() == 2) {
+        $nbParticipants = count($sortie->getParticipants());
+        $participantMax = $sortie->getNbInscriptionsMax();
+        $dateCloture = $sortie->getDateLimiteInscription();
+        $dateDuJour = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
+
+        if ($sortie->getEtat()->getId() == 2 && $nbParticipants < $participantMax) {
             //ajouter l'enregistrement dans la bdd
             $sortie->addParticipant($participant);
 
