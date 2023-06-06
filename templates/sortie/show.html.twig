@@ -5,11 +5,9 @@
 {% endblock %}
 
 {% block body %}
- Test détail
- <div class="ligneFormulaire">
-  <h5>Nom de la sortie : </h5>
-  {{ sorties.nom }}
- </div>
+
+  <h2>  {{ sorties.nom }}</h2>
+
  <div class="ligneFormulaire">
   <h5>Date et heure de la sortie : </h5>
   {{ sorties.dateHeureDebut | date('d/m/Y H:i') }}
