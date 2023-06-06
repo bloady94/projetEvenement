@@ -32,9 +32,11 @@ class SortieController extends AbstractController
                         VilleRepository $villeRepository,
                         EtatRepository $etatRepository,
                         ParticipantRepository $participantRepository,
-                        LieuRepository $lieuRepository
+                        LieuRepository $lieuRepository,
     ): Response
     {
+
+
         $villes = $villeRepository->findAll();
         $etat = $etatRepository->find(1);
         $user = $this->getUser()->getUserIdentifier();
@@ -77,6 +79,7 @@ class SortieController extends AbstractController
         return $this->render('sortie/sortie.html.twig', [
             'sortieForm' => $sortieForm->createView(),
             'villes' => $villes,
+
             //'lieuForm' => $lieuForm->createView()
         ]);
     }
@@ -204,5 +207,15 @@ class SortieController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('main_homepage');
+    }
+
+    #[Route('/infoLieu', name: 'infolieu', requirements: ["selectionOption" => "\d+"])]
+    public function infoLieu(int $id,
+                             SortieRepository $sortieRepository,
+                             ParticipantRepository $participantRepository,
+                             EntityManagerInterface $entityManager): Response
+    {
+
+        return $this->addFlash('success', "c'est bon");
     }
 }

@@ -40,10 +40,7 @@
         {{ form_label(sortieForm.infosSortie) }}
         {{ form_widget(sortieForm.infosSortie) }}
     </div>
-    <div class="ligneFormulaire">
-        {{ form_label(sortieForm.lieu) }}
-        {{ form_widget(sortieForm.lieu) }}
-    </div>
+
     <div class="ligneFormulaire">
         {{ form_label(sortieForm.campus) }}
         {{ form_widget(sortieForm.campus) }}
@@ -60,10 +57,18 @@
         </label>
 
     </div>
+    <div class="ligneFormulaire">
+        {{ form_label(sortieForm.lieu) }}
+        {{ form_widget(sortieForm.lieu) }}
+    </div>
 
     <div class= "boutons">
         <button id="enregistrer">{% block buttonLabel1 %}Enregistrer{% endblock %}</button>
 
+
+        <div class="test">
+            <h2 id="h2"></h2>
+        </div>
 
 
     </div>
@@ -114,6 +119,21 @@
         document.getElementById('enregistrer').addEventListener('click', function() {
             window.location.href =  "{{ path('profile_update', {'id': app.user.id}) }}";
         })
+
+        document.getElementById('sortie_lieu').addEventListener('change', function() {
+            let value =  this.value
+            let id = document.getElementById("sortie_lieu").innerText
+            console.log(value)
+            let variableA = document.getElementById("sortie_lieu").innerText
+            document.getElementById("sortie_lieu").innerText = value;
+            console.log(id)
+
+
+
+
+
+        })
+
 
     </script>
 
