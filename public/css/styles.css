@@ -77,7 +77,7 @@ h1 {
 }
 
 
-input[type="submit"], button, input[type="button"] {
+input[type="submit"], button, input[type="button"], input[type="file"] {
     background-color: #fce7e0;
     padding: 5px;
     border-radius: 5px;
@@ -87,7 +87,7 @@ input[type="submit"], button, input[type="button"] {
 table {
     margin-left: 0;
     margin-top: 5%;
-    width: 80%;
+    width: 100%;
 }
 
 .supprModif {
@@ -114,8 +114,7 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
-    padding-left: 3em;
+    width: 100%;
 }
 
 
@@ -159,10 +158,9 @@ body > .container {
     min-height: 100vh;
 }
 
-input[type="search"]:focus {
+input[type="search"]:focus, input[type="text"]:focus, input[type="date"]:focus, input[type="datetime-local"]:focus, input[type="password"]:focus{
     box-shadow: #fce7e0 0 0 5px 5px;
 }
-
 
 .imgProfil {
     display: flex;

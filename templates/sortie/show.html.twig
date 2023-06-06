@@ -69,8 +69,16 @@
  <tbody>
  {% for eachOne in sortieParticipants %}
    <tr>
-    <td><a href="{{ path('profile_show', {'id': eachOne.id}) }}">{{ eachOne.username }}</a></td>
-    <td>{{ eachOne.prenom }} {{ eachOne.nom }}</td>
+    <td>
+      <div class="ajouter">
+     <a href="{{ path('profile_show', {'id': eachOne.id}) }}">{{ eachOne.username }}</a>
+      </div>
+    </td>
+    <td>
+     <div class="ajouter">
+     {{ eachOne.prenom }} {{ eachOne.nom }}
+     </div>
+    </td>
    </tr>
    {% endfor %}
  </tbody>

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Ajouter une sortie</h1>
+    <h2>Ajouter une sortie</h2>
     Commencez par
         <a href="{{ path('lieu_add') }}"><input type="button" value="Ajouter un lieu"></a>
 {#    <button id="show-lieu-form-btn" type="button">Ajouter un lieu</button>#}
@@ -16,11 +16,41 @@
 {#        {{ form_end(lieuForm) }}#}
 
     {{ form_start(sortieForm) }}
-    {{ form_widget(sortieForm) }}
-
+    <div class="ligneFormulaire">
+    {{ form_label(sortieForm.nom) }}
+    {{ form_widget(sortieForm.nom) }}
+    </div>
+    <div class="ligneFormulaire">
+    {{ form_label(sortieForm.dateHeureDebut) }}
+    {{ form_widget(sortieForm.dateHeureDebut) }}
+    </div>
+    <div class="ligneFormulaire">
+    {{ form_label(sortieForm.duree) }}
+    {{ form_widget(sortieForm.duree) }}
+    </div>
+    <div class="ligneFormulaire">
+        {{ form_label(sortieForm.dateLimiteInscription) }}
+        {{ form_widget(sortieForm.dateLimiteInscription) }}
+    </div>
+    <div class="ligneFormulaire">
+        {{ form_label(sortieForm.nbInscriptionsMax) }}
+        {{ form_widget(sortieForm.nbInscriptionsMax) }}
+    </div>
+    <div class="ligneFormulaire">
+        {{ form_label(sortieForm.infosSortie) }}
+        {{ form_widget(sortieForm.infosSortie) }}
+    </div>
+    <div class="ligneFormulaire">
+        {{ form_label(sortieForm.lieu) }}
+        {{ form_widget(sortieForm.lieu) }}
+    </div>
+    <div class="ligneFormulaire">
+        {{ form_label(sortieForm.campus) }}
+        {{ form_widget(sortieForm.campus) }}
+    </div>
 
 {#    </form>#}
-    <div class="ville">
+    <div class="ligneFormulaire">
         <label for="ville">Ville :
             <select name="nomVille">
                 {% for ville in villes %}
@@ -28,7 +58,6 @@
                 {% endfor %}
             </select>
         </label>
-
 
     </div>
 

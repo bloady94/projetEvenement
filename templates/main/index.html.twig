@@ -3,8 +3,8 @@
 {% block title %}{{ parent() }} | Accueil{% endblock %}
 
 {% block body %}
-    <h3>Bonjour, {{ app.user.prenom }} !</h3>
-    <H4>{% set trans_day_hash = {
+    <h2>Bonjour, {{ app.user.prenom }} !</h2>
+    <h3>{% set trans_day_hash = {
             "Monday": "Lundi",
             "Tuesday": "Mardi",
             "Wednesday": "Mercredi",
@@ -30,7 +30,7 @@
             "December": "Décembre"
         } %}
         {{ trans_month_hash["now"|date('F')] }}
-        {{ date().format('Y') }}</H4>
+        {{ date().format('Y') }}</h3>
 
     <form action="{{ path('main_homepage') }}" method="get">
         <label for="recherche">Sorties par campus : </label>
@@ -101,18 +101,18 @@
 
                             {% if app.user == sortie.organisateur %}
                                 {% if sortie.etat.id == 1 %}
-                                    <a href="{{ path('sortie_cancel', {'idSortie': sortie.id}) }}">Annuler</a>
-                                    <a href="{{ path('sortie_update', {'idSortie': sortie.id}) }}">Modifier</a>
+                                    <a href="{{ path('sortie_cancel', {'idSortie': sortie.id}) }}">Annuler</a> -
+                                    <a href="{{ path('sortie_update', {'idSortie': sortie.id}) }}">Modifier</a> -
                                     <a href="{{ path('sortie_publish', {'idSortie': sortie.id}) }}">Publier</a>
                                 {% elseif  sortie.etat.id == 2 %}
-                                    <a href="{{ path('sortie_cancel', {'idSortie': sortie.id}) }}">Annuler</a>
+                                    <a href="{{ path('sortie_cancel', {'idSortie': sortie.id}) }}">Annuler</a> -
                                 {% endif %}
 
                             {% endif %}
 
                             {% if sortie.etat.id == 2 %}
                                 {% if app.user in sortie.participants%}
-                                    <a href="{{ path('sortie_desinscrire', {'id': sortie.id}) }}">Se désister - </a>
+                                    <a href="{{ path('sortie_desinscrire', {'id': sortie.id}) }}">Se désister</a>
                                 {% else %}
                                     <a href="{{ path('sortie_inscrire', {'id': sortie.id}) }}">S'inscrire</a>
                                 {% endif %}
