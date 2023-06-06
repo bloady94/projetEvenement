@@ -9,11 +9,22 @@ body {
     align-items: baseline;
     justify-content: space-between;
     width: 50%;
+    margin: 1em;
+}
+
+nav> ul > div > li > a:hover {
+    text-decoration: none;
+    color: #de3401;
 }
 
 a {
     text-decoration: none;
     color: #de3401;
+    transition-duration: 0.4s;
+}
+
+a:hover{
+    color: #420030;
 }
 
 nav > ul > div > li {
@@ -70,13 +81,23 @@ input[type="submit"], button, input[type="button"] {
     background-color: #fce7e0;
     padding: 5px;
     border-radius: 5px;
-    transition-duration: 0.2s;
+    transition-duration: 0.4s;
 }
 
 table {
-    margin-left: 20%;
+    margin-left: 0;
     margin-top: 5%;
-    width: 50%;
+    width: 80%;
+}
+
+.supprModif {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.ajouter {
+    display: flex;
+    justify-content: center;
 }
 
 table > thead > tr > th {
@@ -92,7 +113,8 @@ td {
 form {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    align-items: center;
+    width: 80%;
     padding-left: 3em;
 }
 
@@ -151,4 +173,11 @@ input[type="search"]:focus {
     border-radius: 50%;
     height: 30%;
     width: 30%;
+}
+
+form > .formRecherche  {
+    display: flex;
+    width: 80%;
+    justify-content: space-evenly;
+    align-items: center;
 }

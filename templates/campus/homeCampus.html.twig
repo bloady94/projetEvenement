@@ -10,11 +10,13 @@
 
     {# on crée un formulaire et on désigne la route du controller ou on veut envoyer la data #}
     <form action="{{ path('campus_trouverCampus') }}" >
+        <div class="formRecherche">
         <label for="recherche">Le nom contient : </label>
         <label>
             <input type="search" name="recherche">
         </label>
         <input type="submit" value="Rechercher">
+        </div>
     </form>
 
     {# On vérifie que campus ne soit pas vide, si c'est le cas on affiche le contenu sous la forme
@@ -35,14 +37,21 @@
                 <tr>
                     <td>{{ camp.nom }}</td>
                     <td>
+                        <div class="supprModif">
                         <a href="{{ path('campus_update', {'id': camp.id})}}">Modifier</a> -
                         <a href="{{ path('campus_delete', {'id': camp.id})}}">Supprimer</a>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
                 <tr>
                     <td> </td>
-                    <td><a href="{{path('campus_add')}}">Ajouter</a></td>
+
+                    <td>
+                        <div class="ajouter">
+                            <a href="{{path('campus_add')}}">Ajouter</a>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>

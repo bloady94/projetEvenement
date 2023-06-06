@@ -5,34 +5,39 @@
 {% endblock %}
 
 {% block body %}
+ <h2>Modifier le profil</h2>
    {{ form_start(participantForm) }}
  <div class="ligneFormulaire">
-  {{ form_row(participantForm.username) }}
+  {{ form_label(participantForm.username) }}
+  {{ form_widget(participantForm.username) }}
  </div>
  <div class="ligneFormulaire">
- {{ form_row(participantForm.plainPassword, {
-  label: 'Mot de passe '
- }) }}
+ {{ form_label(participantForm.plainPassword) }}
+ {{ form_widget(participantForm.plainPassword) }}
  </div>
  <div class="ligneFormulaire">
- {{ form_row(participantForm.nom) }}
+ {{ form_label(participantForm.nom) }}
+ {{ form_widget(participantForm.nom) }}
  </div>
  <div class="ligneFormulaire">
- {{ form_row(participantForm.prenom) }}
+ {{ form_label(participantForm.prenom) }}
+ {{ form_widget(participantForm.prenom) }}
  </div>
  <div class="ligneFormulaire">
- {{ form_row(participantForm.telephone) }}
+ {{ form_label(participantForm.telephone) }}
+ {{ form_widget(participantForm.telephone) }}
  </div>
  <div class="ligneFormulaire">
- {{ form_row(participantForm.mail) }}
+ {{ form_label(participantForm.mail) }}
+ {{ form_widget(participantForm.mail) }}
  </div>
  <div class="ligneFormulaire">
- {{ form_row(participantForm.campus) }}
+ {{ form_label(participantForm.campus) }}
+ {{ form_widget(participantForm.campus) }}
  </div>
  <div class="ligneFormulaire">
-  {{ form_row(participantForm.photo, {
-  label: 'Photo de profil '
- }) }}
+  {{ form_label(participantForm.photo) }}
+  {{ form_widget(participantForm.photo) }}
  </div>
  <button id="saveButton">Enregistrer</button>
  {{ form_end(participantForm) }}
