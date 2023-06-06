@@ -39,14 +39,6 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllWithAssociations()
-    {
-        $qb = $this->createQueryBuilder('s')
-            ->leftJoin('s.participants', 'participants') // Effectuez une jointure avec la table d'association TA
-            ->addSelect('participants');
-        return $qb->getQuery()->getResult();
-    }
-
     public function trouverVille(){
 
         $qb = $this->createQueryBuilder('v');

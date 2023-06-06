@@ -146,13 +146,16 @@ class SortieController extends AbstractController
     #[Route('/publish/{idSortie}}', name: 'publish', requirements: ["idSortie" => "\d+"])]
     public function publish(int $idSortie, SortieRepository $sortieRepository, EtatRepository $etatRepository): Response
     {
+        $user = $this->getUser();
         $sortie = $sortieRepository->find($idSortie);
+        $organisateur = $sortie->getOrganisateur();
         //chercher l'état à l'id 2 "Ouverte"
         $etat = $etatRepository->find(2);
 
         //modifier l'état de la sortie à "Ouverte"
+        if ($organisateur === $user){
             $sortie->setEtat($etat);
-
+        }
             $sortieRepository->save($sortie, true);
 
         return $this->redirectToRoute('main_homepage');
