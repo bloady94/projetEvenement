@@ -50,7 +50,19 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
+    public function findByCampus(string $campus){
 
+
+        $entityManager = $this->getEntityManager();
+        $qb = $entityManager->createQueryBuilder();
+
+        $qb ->select('s')
+            ->from(Sortie::class, 's')
+            ->where('s.campus = :campus')
+            ->setParameter('campus', $campus);
+
+        return $qb->getQuery()->getResult();
+    }
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
@@ -9,6 +10,7 @@ use DateInterval;
 use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,10 +21,11 @@ class MainController extends AbstractController
      * @throws \Exception
      */
     #[Route('/homepage', name: 'main_homepage')]
-    public function index(SortieRepository $sortieRepository, ParticipantRepository $participantRepository, EtatRepository $etatRepository): Response
+    public function index(Request $request, SortieRepository $sortieRepository, ParticipantRepository $participantRepository, EtatRepository $etatRepository, CampusRepository $campusRepository): Response
     {
         //trouver toutes les sorties
         $sorties = $sortieRepository->findAll();
+        $allCampus = $campusRepository->findAll();
 
         //établir une variable pour chaque etat
         $etatArchive = $etatRepository->find(7);
@@ -36,6 +39,9 @@ class MainController extends AbstractController
         $count = 0;
 
         foreach ($sorties as $sortie) {
+            //$campus = $sortie->getCampus()->getNom();
+
+
             $duree = $sortie->getDuree();
             $dateDebut = $sortie->getDateHeureDebut();
             $dateCloture = $sortie->getDateLimiteInscription();
@@ -61,7 +67,18 @@ class MainController extends AbstractController
             if ($dateDebut <= $dateHeureNow && $dateHeureNow <= $dateFin){
                 $sortie->setEtat($etatEnCours);
             }
+
+            $recherche = $request->query->get('recherche');
+            //if ($recherche = $campus) {
+                //$sorties = $sortieRepository->findByCampus($recherche);
+            //}
+
         }
+
+
+
+
+
 
         //trouver le participant correspondant à la personne connectée
         $user = $this->getUser()->getId();
@@ -71,7 +88,8 @@ class MainController extends AbstractController
             'controller_name' => 'SortieController',
             'sorties' => $sorties,
             'participant' => $participant,
-            'count' => $count
+            'count' => $count,
+            'allCampus' => $allCampus
         ]);
     }
 

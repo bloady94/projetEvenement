@@ -32,6 +32,34 @@
         {{ trans_month_hash["now"|date('F')] }}
         {{ date().format('Y') }}</H4>
 
+    <form action="{{ path('main_homepage') }}" method="get">
+        <label for="recherche">Sorties par campus : </label>
+        <select name="recherche">
+            <option name="recherche" value=""></option>
+            {% for campus in allCampus %}
+                <option name="recherche" value="{{ campus.nom }}">{{ campus.nom }}</option>
+            {% endfor %}
+        </select>
+        <div class="ligneFormulaire">
+            <label for="organisation">Sorties dont je suis l'organisateur(trice) : </label>
+            <input type="checkbox" id="organisation">
+        </div>
+        <div class="ligneFormulaire">
+        <label for="inscription">Sorties auxquelles je suis insrit(e) : </label>
+            <input type="checkbox" id="inscription">
+        </div>
+        <div class="ligneFormulaire">
+            <label for="nonInscription">Sorties auxquelles je suis pas insrit(e) : </label>
+            <input type="checkbox" id="nonInscription">
+        </div>
+        <div class="ligneFormulaire">
+            <label for="tropTard">Sorties passées : </label>
+            <input type="checkbox" id="tropTard">
+        </div>
+
+        <input type="submit" value="Rechercher">
+    </form>
+
     <div class="tableauAccueil">
         <table>
             <thead>
