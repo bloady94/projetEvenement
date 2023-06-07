@@ -12,6 +12,14 @@ body {
     margin: 1em;
 }
 
+#ligneFormulaire {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 50%;
+    margin: 1em;
+}
+
 nav> ul > div > li > a:hover {
     text-decoration: none;
     color: #de3401;
@@ -178,4 +186,14 @@ form > .formRecherche  {
     width: 80%;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.centrer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centrer > a {
+    margin-left: 5px;
 }
