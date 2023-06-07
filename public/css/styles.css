@@ -71,7 +71,7 @@ button:hover, input[type="submit"]:hover, input[type="button"]:hover {
 
 h2, h3 {
     color: #420030;
-    padding-top: 1em;
+    padding-top: 2em;
     display: flex;
     justify-content: center;
     padding-bottom: 2em;
