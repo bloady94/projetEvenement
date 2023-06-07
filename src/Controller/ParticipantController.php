@@ -10,16 +10,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[IsGranted("ROLE_USER")]
+
 class ParticipantController extends AbstractController
 {
-
+    #[IsGranted("ROLE_USER")]
     #[Route('/profile', name: 'profile_index')]
     public function index(): Response
     {
         return $this->render('participant/profile.html.twig');
     }
 
+    #[IsGranted("ROLE_USER")]
     #[Route('/profile/update/{id}', name: 'profile_update', requirements: ["id" => "\d+"])]
     public function update(Request $request, int $id, ParticipantRepository $participantRepository): Response
     {
@@ -45,6 +46,7 @@ class ParticipantController extends AbstractController
         ]);
     }
 
+    #[IsGranted("ROLE_USER")]
     #[Route('/profile/{id}', name: 'profile_show', requirements: ["id" => "\d+"])]
     public function show(int $id, ParticipantRepository $participantRepository): Response
     {
@@ -52,6 +54,16 @@ class ParticipantController extends AbstractController
 
         return $this->render('participant/show.html.twig', [
                 'participant' => $participant
+        ]);
+    }
+    #[IsGranted("ROLE_ADMIN")]
+    #[Route('/list', name: 'profile_list', requirements: ["id" => "\d+"])]
+    public function list(ParticipantRepository $participantRepository): Response
+    {
+        $eleves = $participantRepository->findAll();
+
+        return $this->render('participant/list.html.twig', [
+            'eleves' => $eleves
         ]);
     }
 }

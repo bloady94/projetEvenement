@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+{{ parent() }} | Liste des élèves
+{% endblock %}
+
+{% block body %}
+    <h2> Liste des élèves </h2>
+<table>
+    <thead>
+    <tr>
+        <th>Pseudo</th>
+        <th>Prenom</th>
+        <th>Nom</th>
+        <th>Telephone</th>
+        <th>Mail</th>
+        <th>Campus</th>
+        <th>Actif</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for eleve in eleves %}
+        {% if eleve.administrateur != true %}
+            <tr>
+                <td>{{ eleve.userIdentifier }}</td>
+                <td>{{ eleve.prenom }}</td>
+                <td>{{ eleve.nom }}</td>
+                <td>{{ eleve.telephone }}</td>
+                <td>{{ eleve.mail }}</td>
+                <td>{{ eleve.campus.nom }}</td>
+                <td>
+                    {% if eleve.actif == true %}
+                        X
+                    {% endif %}
+                </td>
+            </tr>
+
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>
+    <button id="addStudent">Ajouter un élève</button>
+
+    <script>
+        document.getElementById('addStudent').addEventListener('click', function (){
+            window.location.href = "{{ path('app_register') }}"
+        })
+    </script>
+{% endblock %}
+
+
+

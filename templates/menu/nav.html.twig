@@ -3,6 +3,7 @@
             <div class="barreNavigation">
             {% if app.user %}
                 {% if app.user.administrateur %}
+            <li><a href="{{ path('profile_list') }}">Liste des élèves</a></li>
             <li><a href="{{ path('ville_list') }}">Villes</a></li>
             <li><a href="{{ path('campus_list') }}">Campus</a></li>
                 {% endif %}
