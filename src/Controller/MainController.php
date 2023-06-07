@@ -23,8 +23,17 @@ class MainController extends AbstractController
     #[Route('/homepage', name: 'main_homepage')]
     public function index(Request $request, SortieRepository $sortieRepository, ParticipantRepository $participantRepository, EtatRepository $etatRepository, CampusRepository $campusRepository): Response
     {
+        $participantId = $this->getUser()->getId();
+
+        $recherche = $request->query->get('recherche');
+        $organisateur = $request->query->get('organisation');
+        $inscrit = $request->query->get('inscription');
+        $nonInscrit = $request->query->get('nonInscription');
+        $passees = $request->query->get('tropTard');
+        $searchQuery = $request->query->get('q');
+
         //trouver toutes les sorties
-        $sorties = $sortieRepository->findAll();
+        //$sorties = $sortieRepository->findAll();
         $allCampus = $campusRepository->findAll();
 
         //établir une variable pour chaque etat
@@ -33,10 +42,9 @@ class MainController extends AbstractController
         $etatPassee = $etatRepository->find(5);
         $etatEnCours = $etatRepository->find(4);
 
-
-
         //initialiser le compte des participants à 0, et l'inscrit à une chaîne de caractères vide
         $count = 0;
+        $sorties = $sortieRepository->searchSorties($searchQuery, $recherche, $organisateur, $inscrit, $nonInscrit, $passees, $participantId);
 
         foreach ($sorties as $sortie) {
             //$campus = $sortie->getCampus()->getNom();
@@ -68,11 +76,6 @@ class MainController extends AbstractController
                 $sortie->setEtat($etatEnCours);
             }
 
-            $recherche = $request->query->get('recherche');
-            //if ($recherche = $campus) {
-                //$sorties = $sortieRepository->findByCampus($recherche);
-            //}
-
         }
 
 
@@ -92,29 +95,5 @@ class MainController extends AbstractController
             'allCampus' => $allCampus
         ]);
     }
-
-
-
-//        if($sortie->getDateHeureDebut() <= date(now))
-
-
-//        Si la sortie = ouverte(2) ALors
-//	'vous pouvez vous inscrire'
-//
-//Si la date sortie <= à la date de maintenant Alors
-//	 'L'inscription à la sortie est dépassée'
-//
-//
-//Si nb participant est >= au nb d'inscription max Alors :
-//	'Pas possible trop de monde'
-//
-//Si tu es deja inscrit Alors :
-//	'tu es dja inscrit'
-//
-//On ajoute le participant à la sortie
-
-
-
-//       return $this->redirectToRoute('main_homepage');
 
 }

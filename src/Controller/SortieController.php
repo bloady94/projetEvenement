@@ -208,14 +208,4 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('main_homepage');
     }
-
-    #[Route('/infoLieu', name: 'infolieu', requirements: ["selectionOption" => "\d+"])]
-    public function infoLieu(int $id,
-                             SortieRepository $sortieRepository,
-                             ParticipantRepository $participantRepository,
-                             EntityManagerInterface $entityManager): Response
-    {
-
-        return $this->addFlash('success', "c'est bon");
-    }
 }

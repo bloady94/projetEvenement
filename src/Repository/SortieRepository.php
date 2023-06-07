@@ -50,18 +50,60 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
-    public function findByCampus(string $campus){
-
-
+    public function searchSorties($searchQuery, $campus,/*$dateDebut, $dateFin, */$organisateur, $inscrit, $nonInscrit, $passees, $participantId)
+    {
         $entityManager = $this->getEntityManager();
-        $qb = $entityManager->createQueryBuilder();
 
-        $qb ->select('s')
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder->select('s')
             ->from(Sortie::class, 's')
-            ->where('s.campus = :campus')
-            ->setParameter('campus', $campus);
+            ->leftJoin('s.organisateur', 'o')
+            ->leftJoin('s.participants', 'i');
 
-        return $qb->getQuery()->getResult();
+        if ($searchQuery) {
+            $queryBuilder->where('s.nom LIKE :searchQuery')
+                ->setParameter('searchQuery', '%' . $searchQuery . '%');
+        }
+
+        if ($campus) {
+            $queryBuilder->andWhere('s.campus = :campus')
+                ->setParameter('campus', $campus);
+        }
+
+        /*if ($dateDebut) {
+            $queryBuilder->andWhere('s.dateHeureDebut >= :dateDebut')
+                ->setParameter('dateDebut', $dateDebut);
+        }
+
+        if ($dateFin) {
+            $queryBuilder->andWhere('s.dateHeureDebut <= :dateFin')
+                ->setParameter('dateFin', $dateFin);
+        }*/
+        if ($organisateur) {
+            $queryBuilder->orWhere('o.id = :organisateurId')
+                ->setParameter('organisateurId', $participantId);
+        }
+
+
+        if ($inscrit) {
+            $queryBuilder->orWhere('i.id = :participantId')
+                ->setParameter('participantId', $participantId);
+        }
+        if ($nonInscrit) {
+            $queryBuilder->orWhere(':participantId NOT MEMBER OF s.participants')
+                ->setParameter('participantId', $participantId);
+        }
+
+
+        if ($passees) {
+            $queryBuilder->orWhere('s.dateHeureDebut <  :maintenant')
+                ->setParameter('maintenant', new \DateTime());
+        }
+
+        $query = $queryBuilder->getQuery();
+        $sorties = $query->getResult();
+
+        return $sorties;
     }
 
 

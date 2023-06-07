@@ -33,6 +33,8 @@
         {{ date().format('Y') }}</h3>
 
     <form action="{{ path('main_homepage') }}" method="get">
+        <label for="q">Nom de la sortie : </label>
+        <input type="text" name="q">
         <label for="recherche">Sorties par campus : </label>
         <select name="recherche">
             <option name="recherche" value=""></option>
