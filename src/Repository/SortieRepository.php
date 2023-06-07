@@ -50,7 +50,7 @@ class SortieRepository extends ServiceEntityRepository
 
     }
 
-    public function searchSorties($searchQuery, $campus,/*$dateDebut, $dateFin, */$organisateur, $inscrit, $nonInscrit, $passees, $participantId)
+    public function searchSorties($searchQuery, $campus, $organisateur, $inscrit, $nonInscrit, $passees, $participantId/*, $dateDebut, $dateFin*/)
     {
         $entityManager = $this->getEntityManager();
 
@@ -66,19 +66,10 @@ class SortieRepository extends ServiceEntityRepository
         }
 
         if ($campus) {
-            $queryBuilder->andWhere('s.campus = :campus')
+            $queryBuilder->where('s.campus = :campus')
                 ->setParameter('campus', $campus);
         }
 
-        /*if ($dateDebut) {
-            $queryBuilder->andWhere('s.dateHeureDebut >= :dateDebut')
-                ->setParameter('dateDebut', $dateDebut);
-        }
-
-        if ($dateFin) {
-            $queryBuilder->andWhere('s.dateHeureDebut <= :dateFin')
-                ->setParameter('dateFin', $dateFin);
-        }*/
         if ($organisateur) {
             $queryBuilder->orWhere('o.id = :organisateurId')
                 ->setParameter('organisateurId', $participantId);
@@ -100,6 +91,15 @@ class SortieRepository extends ServiceEntityRepository
                 ->setParameter('maintenant', new \DateTime());
         }
 
+        /*if ($dateDebut) {
+            $queryBuilder->andWhere('s.dateHeureDebut >= :dateDebut')
+                ->setParameter('dateDebut', $dateDebut);
+        }
+
+        if ($dateFin) {
+            $queryBuilder->andWhere('s.dateHeureDebut <= :dateFin')
+                ->setParameter('dateFin', $dateFin);
+        }*/
         $query = $queryBuilder->getQuery();
         $sorties = $query->getResult();
 

@@ -25,7 +25,7 @@ class MainController extends AbstractController
     {
         $participantId = $this->getUser()->getId();
 
-        $recherche = $request->query->get('recherche');
+        $recherche = $request->query->get('campus');
         $organisateur = $request->query->get('organisation');
         $inscrit = $request->query->get('inscription');
         $nonInscrit = $request->query->get('nonInscription');

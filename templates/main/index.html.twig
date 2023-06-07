@@ -33,15 +33,19 @@
         {{ date().format('Y') }}</h3>
 
     <form action="{{ path('main_homepage') }}" method="get">
+        <div class="ligneFormulaire">
         <label for="q">Nom de la sortie : </label>
         <input type="text" name="q">
-        <label for="recherche">Sorties par campus : </label>
-        <select name="recherche">
-            <option name="recherche" value=""></option>
+        </div>
+        <div class="ligneFormulaire">
+        <label for="campus">Sorties par campus : </label>
+        <select name="campus">
+            <option value=""></option>
             {% for campus in allCampus %}
-                <option name="recherche" value="{{ campus.nom }}">{{ campus.nom }}</option>
+                <option value="{{ campus.id }}">{{ campus.nom }}</option>
             {% endfor %}
         </select>
+        </div>
         <div class="ligneFormulaire">
             <label for="organisation">Sorties dont je suis l'organisateur(trice) : </label>
             <input type="checkbox" id="organisation">
