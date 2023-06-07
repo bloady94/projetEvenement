@@ -50,9 +50,12 @@
 {#    </form>#}
 
         <label for="ville" id="ligneFormulaire">Ville :
-            <select name="nomVille" >
+            <select name="nomVille" id="nomVille">
+                {#
+                <option value="ville"></option>
+                #}
                 {% for ville in villes %}
-                    <option value="ville">{{ ville.nom }}</option>
+                    <option value="{{ ville.id }}">{{ ville.nom }}</option>
                 {% endfor %}
             </select>
         </label>
@@ -139,6 +142,31 @@
                     lieuDetails.innerHTML = `Longitude : ${data.longitude}<br>
                                  Latitude : ${data.latitude}<br>
                                  Rue : ${data.rue}`;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+
+        document.getElementById('nomVille').addEventListener('change', function() {
+            let selectedVilleId = this.value; // Récupère l'ID de la ville sélectionnée
+            // Effectue la requête AJAX
+            fetch('{{ path('lieu_lieu_get_lieux_by_ville') }}', {
+                method: 'POST',
+                body: JSON.stringify({ id: selectedVilleId }), // Envoie l'ID de la ville au contrôleur
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Met à jour le select des lieux avec les lieux récupérés
+                    let selectLieu = document.getElementById('sortie_lieu');
+                    selectLieu.innerHTML = ''; // Vide les options actuelles
+
+                    data.forEach(lieu => {
+                        selectLieu.innerHTML += `<option value="${lieu.id}">${lieu.nom}</option>`;
+                    });
                 })
                 .catch(error => {
                     console.error(error);
