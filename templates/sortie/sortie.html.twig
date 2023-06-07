@@ -62,7 +62,7 @@
         {{ form_label(sortieForm.lieu) }}
         {{ form_widget(sortieForm.lieu) }}
     </div>
-
+    <p id="lieu-details"></p>
     <div class= "boutons">
         <button id="enregistrer">{% block buttonLabel1 %}Enregistrer{% endblock %}</button>
 
@@ -122,18 +122,29 @@
         })
 
         document.getElementById('sortie_lieu').addEventListener('change', function() {
-            let value =  this.value
-            let id = document.getElementById("sortie_lieu").innerText
-            console.log(value)
-            let variableA = document.getElementById("sortie_lieu").innerText
-            document.getElementById("sortie_lieu").innerText = value;
-            console.log(id)
+            let selectedLieuId = this.value; // Récupère l'ID du lieu sélectionné
 
+            // Effectue la requête AJAX
+            fetch('{{ path('lieu_get_lieu_details') }}', {
+                method: 'POST',
+                body: JSON.stringify({ id: selectedLieuId }), // Envoie l'ID du lieu au contrôleur
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Affiche les détails du lieu dans la balise <p>
+                    let lieuDetails = document.getElementById('lieu-details');
+                    lieuDetails.innerHTML = `Longitude : ${data.longitude}<br>
+                                 Latitude : ${data.latitude}<br>
+                                 Rue : ${data.rue}`;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
 
-
-
-
-        })
 
 
     </script>

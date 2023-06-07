@@ -7,6 +7,7 @@ use App\Form\LieuType;
 use App\Repository\LieuRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,4 +39,25 @@ class LieuController extends AbstractController
             'lieuForm' => $lieuForm->createView()
         ]);
     }
+
+      #[Route('/details', name: 'get_lieu_details', methods: "POST")]
+    public function getLieuDetails(Request $request, LieuRepository $lieuRepository): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $id = $data['id'];
+        $lieu = $lieuRepository->find($id);
+
+        // Vérifie si le lieu existe
+        if ($lieu === null) {
+            return new JsonResponse(['error' => 'Lieu not found'], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        // Renvoie les détails du lieu en tant que réponse JSON
+        return new JsonResponse([
+            'longitude' => $lieu->getLongitude(),
+            'latitude' => $lieu->getLatitude(),
+            'rue' => $lieu->getRue()
+        ]);
+    }
+
 }
