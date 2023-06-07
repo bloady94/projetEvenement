@@ -5,42 +5,55 @@
 {% endblock %}
 
 {% block body %}
-    <div class="recap">
-        <h2>{{ app.user.userIdentifier }}</h2>
+<div class="container-card">
+<div class="flip-card">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <div class="profile-image">
         {% set photoProfil = app.user.photo %}
         {% if photoProfil == null %}
-        <img src="{{ asset('img/photo/default.png') }}" alt="sansPhotoProfil">
+        <img src="{{ asset('img/photo/default.png') }}" class="pfp" alt="sansPhotoProfil">
         {% else %}
-            <div class="imgProfil">
-                <img src="{{ asset('img/photo/' ~ app.user.photo) }}" alt="sansPhotoProfil">
-            </div>
+
+                <img src="{{ asset('img/photo/' ~ app.user.photo) }}" class="pfp" alt="sansPhotoProfil">
+
         {% endif %}
-            <div class="ligneFormulaire">
+                <div class="name">
+                    {{ app.user.userIdentifier }}
+                </div>
+            </div>
+        </div>
+                <div class="flip-card-back">
+                    <div class="description">
                 <h5>Prénom : </h5>
                 <p>{{ app.user.prenom }}</p>
-            </div>
-            <div class="ligneFormulaire">
+
+
                 <h5>Nom : </h5>
                 <p>{{ app.user.nom }}</p>
-            </div>
-            <div class="ligneFormulaire">
+
+
                 <h5>Téléphone : </h5>
                 <p>{{ app.user.telephone }}</p>
-            </div>
-            <div class="ligneFormulaire">
+
+
                 <h5>Email : </h5>
                 <p>{{ app.user.mail }}</p>
-            </div>
-            <div class="ligneFormulaire">
+
+
                 <h5>Campus </h5>
                 <p>{{ app.user.campus.nom }}</p>
-            </div>
-    </div>
 
-<div class="deuxBoutons">
+                    </div>
+                </div>
+
+
+    </div>
+</div>
+</div>
     <button id="updateBouton">Modifier</button>
     <button id="retourBouton">Retour</button>
-</div>
+
 
     <script>
         document.getElementById('retourBouton').addEventListener('click', function () {
