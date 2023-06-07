@@ -51,9 +51,9 @@
 
         <label for="ville" id="ligneFormulaire">Ville :
             <select name="nomVille" id="nomVille">
-                {#
-                <option value="ville"></option>
-                #}
+
+                <option value="">Sélectionnez une ville</option>
+
                 {% for ville in villes %}
                     <option value="{{ ville.id }}">{{ ville.nom }}</option>
                 {% endfor %}
