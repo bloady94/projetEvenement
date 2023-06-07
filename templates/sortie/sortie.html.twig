@@ -126,7 +126,7 @@
 
         document.getElementById('sortie_lieu').addEventListener('change', function() {
             let selectedLieuId = this.value; // Récupère l'ID du lieu sélectionné
-
+            console.log(selectedLieuId)
             // Effectue la requête AJAX
             fetch('{{ path('lieu_get_lieu_details') }}', {
                 method: 'POST',

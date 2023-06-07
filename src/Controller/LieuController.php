@@ -70,6 +70,7 @@ class LieuController extends AbstractController
         $lieuxData = [];
         foreach ($lieux as $lieu) {
             $lieuxData[] = [
+                'id' => $lieu->getId(),
                 'nom' => $lieu->getNom()
             ];
         }
