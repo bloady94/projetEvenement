@@ -41,8 +41,9 @@
  </div>
  <button id="saveButton">Enregistrer</button>
  {{ form_end(participantForm) }}
+ <div class="returnButton">
  <button id="returnButton">Annuler</button>
-
+ </div>
  <script>
   document.getElementById('returnButton').addEventListener('click', function () {
    window.location.href = "{{ path('profile_index') }}"
