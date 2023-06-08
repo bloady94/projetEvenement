@@ -59,11 +59,6 @@ nav > ul > div > li:hover::after {
     transform-origin: bottom right;
 }
 
-button:hover, input[type="submit"]:hover, input[type="button"]:hover {
-    background-color: #ff3b00;
-    color: white;
-}
-
 .barreNavigation {
     display: flex;
     justify-content: space-evenly;
@@ -90,6 +85,12 @@ input[type="submit"], button, input[type="button"], input[type="file"] {
     padding: 5px;
     border-radius: 5px;
     transition-duration: 0.4s;
+    width: 200px;
+}
+
+button:hover, input[type="submit"]:hover, input[type="button"]:hover {
+    background-color: #ff3b00;
+    color: white;
 }
 
 .detail {
@@ -202,20 +203,9 @@ input[type="checkbox"]:checked {
     background-color: #420030;
 }
 
-/*.imgProfil {
-    display: flex;
-    justify-content: center;
+footer > p {
+    margin-top: 5em;
 }
-.imgProfil > img {
-    border: #de3401 2px inset;
-    border-radius: 50%;
-    height: 30%;
-    width: 30%;
-}
-
-.imgProfil > img:hover {
-    transform: rotateY(180deg);
-}*/
 
 form > .formRecherche  {
     display: flex;
@@ -283,8 +273,9 @@ form > .formRecherche  {
 .pfp {
     border: #420030 2px solid;
     border-radius: 50px;
-    width: 280px;
-    height: 200px;
+    margin-top: 2em;
+    width: 200px;
+    height: 150px;
 }
 
 .name {
