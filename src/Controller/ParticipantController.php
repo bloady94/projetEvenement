@@ -25,6 +25,10 @@ class ParticipantController extends AbstractController
     public function update(Request $request, int $id, ParticipantRepository $participantRepository): Response
     {
         $participant = $participantRepository->find($id);
+        //$admin = $participant->isAdministrateur();
+        if (!$participant){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         $participantForm = $this->createForm(RegistrationFormType::class, $participant);
         $participantForm->handleRequest($request);
 
@@ -34,8 +38,12 @@ class ParticipantController extends AbstractController
                 $newFileName = $participant->getNom() . "-" . $participant->getPrenom() . "-" . uniqid().".".$file->guessExtension();
                 $file->move('img/photo', $newFileName);
                 $participant->setPhoto($newFileName);
-
             }
+/*            if ($admin){
+                $participant->setRoles(["ROLE_ADMIN"]);
+                $participant->setActif(1);
+                $participant->setAdministrateur(1);
+            }*/
             $participantRepository->save($participant, true);
             return $this->redirectToRoute('profile_index');
         }
@@ -51,6 +59,10 @@ class ParticipantController extends AbstractController
     public function show(int $id, ParticipantRepository $participantRepository): Response
     {
         $participant = $participantRepository->find($id);
+
+        if (!$participant){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
 
         return $this->render('participant/show.html.twig', [
                 'participant' => $participant

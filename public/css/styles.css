@@ -301,7 +301,7 @@ form > .formRecherche  {
     padding: 11px;
 }
 
-.description > p{
+.description > p {
     margin-top: 10px;
     letter-spacing: 1px;
     color: #de3401;
@@ -316,4 +316,11 @@ form > .formRecherche  {
     align-items: center;
     justify-content: center;
     padding: 2em;
+}
+
+.textError {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }

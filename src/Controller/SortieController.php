@@ -88,6 +88,9 @@ class SortieController extends AbstractController
     public function show(int $idSortie, SortieRepository $sortieRepository): Response
     {
         $sortie = $sortieRepository->find($idSortie);
+        if (!$sortie){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         $sortieParticipants = $sortie->getParticipants();
 
         return $this->render('sortie/show.html.twig', [
@@ -101,6 +104,9 @@ class SortieController extends AbstractController
     {
         $utilisateur = $this->getUser();
         $sortie = $sortieRepository->find($idSortie);
+        if (!$sortie){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         $organisateur = $sortie->getOrganisateur();
         //chercher l'état à l'id 6 "Annulée"
         $etat = $etatRepository->find(6);
@@ -128,6 +134,9 @@ class SortieController extends AbstractController
     {
         $utilisateur = $this->getUser();
         $sortie = $sortieRepository->find($idSortie);
+        if (!$sortie){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         $organisateur = $sortie->getOrganisateur();
 
         $sortieForm = $this->createForm(SortieType::class, $sortie, [
@@ -151,6 +160,9 @@ class SortieController extends AbstractController
     {
         $user = $this->getUser();
         $sortie = $sortieRepository->find($idSortie);
+        if (!$sortie){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         $organisateur = $sortie->getOrganisateur();
         //chercher l'état à l'id 2 "Ouverte"
         $etat = $etatRepository->find(2);
@@ -171,6 +183,9 @@ class SortieController extends AbstractController
 
 
         $sortie = $sortieRepository->find($id);
+        if (!$sortie){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         $user = $this->getUser()->getUserIdentifier();
         $participant = $participantRepository->findOneBy(['username' => $user]);
 
@@ -196,6 +211,9 @@ class SortieController extends AbstractController
     public function desinscrire(int $id, SortieRepository $sortieRepository, ParticipantRepository $participantRepository, EntityManagerInterface $entityManager): Response
     {
         $sortie = $sortieRepository->find($id);
+        if (!$sortie){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         $user = $this->getUser()->getUserIdentifier();
         $participant = $participantRepository->findOneBy(['username' => $user]);
 

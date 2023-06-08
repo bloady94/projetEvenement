@@ -60,6 +60,9 @@ class VilleController extends AbstractController
     )
     {
         $ville = $villeRepository->find($id);
+        if (!$ville){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         $villeForm = $this->createForm(VilleType::class, $ville);
 
         $villeForm->handleRequest($request);
@@ -79,7 +82,9 @@ class VilleController extends AbstractController
     public function delete(int $id, VilleRepository $villeRepository): Response
     {
         $ville = $villeRepository->find($id);
-
+        if (!$ville){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         $villeRepository->remove($ville, true);
 
         $this->addFlash('success', $ville->getNom() . " vient d'être supprimé!");

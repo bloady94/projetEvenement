@@ -1,16 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Error 404 | {{ parent }}
+    Error 404 | {{ parent() }}
 {% endblock %}
 
 {% block body %}
-    <h1>Page not found</h1>
+    <h2>Oops !</h2>
 
-    <p>
-        The requested page couldn't be located. Checkout for any URL
-        misspelling or <a href="{{ path('main_homepage') }}">return to the homepage</a>.
-    </p>
+    <div class="textError">
+        <p>Vous n'êtes pas au bon endroit ! <br>
+            Vérifiez votre URL ou
+            <a href="{{ path('main_homepage') }}">retournez sur la page d'accueil</a>.
+        </p>
+    </div>
 
-    <h3>{{ exception.message }}</h3>
 {% endblock %}

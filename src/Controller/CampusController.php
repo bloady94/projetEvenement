@@ -49,6 +49,9 @@ class CampusController extends AbstractController
     public function update(Request $request, int $id, CampusRepository $campusRepository): Response
     {
         $campus = $campusRepository->find($id);
+        if (!$campus){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         $campusForm = $this->createForm(CampusType::class, $campus);
         $campusForm->handleRequest($request);
 
@@ -65,6 +68,9 @@ class CampusController extends AbstractController
     public function delete(int $id, CampusRepository $campusRepository): Response
     {
         $campus = $campusRepository->find($id);
+        if (!$campus){
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+        }
         $campusRepository->remove($campus, true);
         $this->addFlash('success', $campus->getNom() . " vient d'être supprimé!");
 
