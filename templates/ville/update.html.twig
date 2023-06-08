@@ -2,11 +2,11 @@
 
 {% block body %}
     {% embed 'views/form/default_form.html.twig' with {'form' : villeForm} %}
-        {% block h2 %} Modifier info ville{% endblock %}
+        {% block h2 %} Modifier une ville{% endblock %}
         {% block buttonLabel %}Modifier{% endblock %}
     {% endembed %}
 {% endblock %}
 
 {% block title %}
-    {{ parent() }} | Update
+    {{ parent() }} | Modifier une ville
 {% endblock %}
